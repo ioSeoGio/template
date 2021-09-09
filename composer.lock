@@ -4,8 +4,47 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3d1ba37731197d1cac3c12a52056b078",
+    "content-hash": "35fbe338a91e3b0508739f219ff7c96a",
     "packages": [
+        {
+            "name": "bower-asset/angular",
+            "version": "v1.8.2",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:angular/bower-angular.git",
+                "reference": "87e966dfdca26321553d6d289a3cff337865058e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/angular/bower-angular/zipball/87e966dfdca26321553d6d289a3cff337865058e",
+                "reference": "87e966dfdca26321553d6d289a3cff337865058e"
+            },
+            "type": "bower-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "bower-asset/angular-route",
+            "version": "v1.8.2",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:angular/bower-angular-route.git",
+                "reference": "3a5fb9220173a4884be80479daf287617e0e6ac4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/angular/bower-angular-route/zipball/3a5fb9220173a4884be80479daf287617e0e6ac4",
+                "reference": "3a5fb9220173a4884be80479daf287617e0e6ac4"
+            },
+            "require": {
+                "bower-asset/angular": "1.8.2"
+            },
+            "type": "bower-asset",
+            "license": [
+                "MIT"
+            ]
+        },
         {
             "name": "bower-asset/inputmask",
             "version": "3.3.11",
