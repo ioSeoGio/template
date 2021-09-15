@@ -46,3 +46,7 @@ frontend/node_modules
 
 #generated assets
 /web/assets/*
+
+# Giiant genenerated files
+/gii/*
+.phptidy-cache

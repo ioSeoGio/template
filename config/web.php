@@ -2,6 +2,7 @@
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
+$i18n = require __DIR__ . '/i18n.php';
 
 $config = [
     'id' => 'basic',
@@ -53,6 +54,7 @@ $config = [
             'rules' => [
             ],
         ],
+        'i18n' => $i18n,
     ],
     'params' => $params,
 ];
@@ -70,7 +72,20 @@ if (YII_ENV_DEV) {
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['127.0.0.1', '::1'],
+        'allowedIPs' => ['127.0.0.1', '::1', '*'],
+        'generators' => [
+            // Имя генератора
+            'giiant-model' => [
+                // Класс генератора
+                // 'class' => 'schmunk42\giiant\model\Generator',
+                'class' => 'schmunk42\giiant\generators\model\Generator',
+                // Настройки шаблонов
+                'templates' => [
+                    // Имя шаблона => путь к шаблону
+                    // 'custom_model' => '@app/giiTemplates/model/default',
+                ]
+            ]
+        ],
     ];
 }
 
