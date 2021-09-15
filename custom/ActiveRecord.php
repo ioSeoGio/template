@@ -7,9 +7,10 @@ class ActiveRecord extends \yii\db\ActiveRecord {
 	{
 		$model = self::findOne($id);
 
-		if ($model)
+		if ($model) {
 			return $model;
+		}
 
-		throw new \yii\web\NotFoundHttpException("Not found 404");
+		throw new \yii\web\NotFoundHttpException();
 	}
 }
