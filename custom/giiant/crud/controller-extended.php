@@ -17,9 +17,9 @@ class <?= $controllerClassName ?> extends <?= (isset($generator->controllerNs) ?
     */
     public function behaviors()
     {
-        return array_merge(parent::behaviors, [
+        return array_merge(parent::behaviors(), [
             'access' => [
-                'class' => AccessControl::className(),
+                'class' => \yii\filters\AccessControl::className(),
                 'rules' => array_merge(parent::access_rules(), [
                     [
                         'allow' => true,
