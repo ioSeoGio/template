@@ -60,6 +60,8 @@ $config = [
 ];
 
 if (YII_ENV_DEV) {
+    $generators = require __DIR__ . '/gii_generators.php';
+    
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
@@ -73,19 +75,8 @@ if (YII_ENV_DEV) {
         'class' => 'yii\gii\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
         'allowedIPs' => ['127.0.0.1', '::1', '*'],
-        'generators' => [
-            // Имя генератора
-            'giiant-model' => [
-                // Класс генератора
-                // 'class' => 'schmunk42\giiant\model\Generator',
-                'class' => 'schmunk42\giiant\generators\model\Generator',
-                // Настройки шаблонов
-                'templates' => [
-                    // Имя шаблона => путь к шаблону
-                    // 'custom_model' => '@app/giiTemplates/model/default',
-                ]
-            ]
-        ],
+        
+        'generators' => $generators,
     ];
 }
 

@@ -29,6 +29,10 @@ $config = [
                 'auth_rule', 
                 'migration'
             ],
+
+            'template' => 'seog_template',
+            'crudTemplate' => 'seog_template',
+            // 'overwrite' => true,
         ]
     ],
     'aliases' => [
@@ -66,10 +70,14 @@ $config = [
 ];
 
 if (YII_ENV_DEV) {
+    $generators = require __DIR__ . '/gii_generators.php';
+    
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
+
+        'generators' => $generators,
     ];
 }
 
