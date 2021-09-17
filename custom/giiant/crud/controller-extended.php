@@ -12,5 +12,24 @@ namespace <?= \yii\helpers\StringHelper::dirname(ltrim($generator->controllerCla
 */
 class <?= $controllerClassName ?> extends <?= (isset($generator->controllerNs) ? '\\'.$generator->controllerNs.'\\' : '') .'base\\'.$controllerClassName."\n" ?>
 {
+    /**
+    * @inheritdoc
+    */
+    public function behaviors()
+    {
+        return array_merge(parent::behaviors, [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => array_merge(parent::access_rules(), [
+                    [
+                        'allow' => true,
+                        'actions' => [],
+                        'roles' => [],
+                    ],
+                ]),
+            ],
+        ]);
+    }
+
 
 }

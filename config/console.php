@@ -14,7 +14,7 @@ $config = [
             'class' => 'schmunk42\giiant\commands\BatchController',
             // 'class' => 'app\custom\giiant\BatchController',
             'overwrite' => true,
-            'crudTidyOutput' => true,
+            'crudTidyOutput' => false,
 
             'modelNamespace' => 'app\\models',
             'crudControllerNamespace' => 'app\\controllers',
@@ -33,6 +33,12 @@ $config = [
             'template' => 'seog_template',
             'crudTemplate' => 'seog_template',
             // 'overwrite' => true,
+
+            'crudAccessFilter' => true,
+            'generateAccessFilterMigrations' => false,
+
+            // temp off, need to configure
+            'useTranslatableBehavior' => false
         ]
     ],
     'aliases' => [
