@@ -35,6 +35,7 @@ echo "<?php\n";
 
 namespace <?= StringHelper::dirname(ltrim($generator->controllerClass, '\\')) ?>\base;
 
+use Yii;
 use yii\web\HttpException;
 use <?= ltrim($generator->baseControllerClass, '\\') ?>;
 use yii\helpers\Url;
