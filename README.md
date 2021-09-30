@@ -6,24 +6,24 @@
     <br>
 </p>
 
-This template provide fast and comfortable start for small & long living projects
+### This template provide fast and comfortable start for small & long living projects
 
-Docker-compose file:
+### Docker-compose file:
 - `nginx:1.17`
 - `php:latest`
 - `postgres:latest`
 - `phpmyadmin/adminer:latest` on your choice
 - `phpdoc:latest` used to generate code documentation on each start of project
 
-Template's software:
+### Template's software:
 - `angular` - faster to handle with synced data after ajax requests
 - `php8`
 - `postgres` - much better for specific tasks than mysql
 
-The template contains the features:
+### The template contains the features:
 - user signup/login/logout
 - custom gii generator to fast generate models & cruds depends on createad tables
-
+- automatic docs generator
 
 DIRECTORY STRUCTURE
 -------------------
@@ -84,12 +84,11 @@ Use -d flag to run docker containers in daemon mode (optional)
 #### Go to php container && install vendor files
     docker exec -it template_php_1 /bin/bash
 (name 'template_php_1' may be vary, depends of name of your project)
-    
     composer install
 
 #### Make migrations to fill database
     php yii migration
-And yes to interactive questions
+And answer yes to interactive questions
 
 START OF DEVELOPING
 -------------------
@@ -116,4 +115,4 @@ TESTING
 USEFUL RESOURCES
 ----------------
 
-- `[markdown of readme cheatsheet](https://github.com/tchapi/markdown-cheatsheet)`
+[markdown of readme cheatsheet](https://github.com/tchapi/markdown-cheatsheet)
