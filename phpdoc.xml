@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+    <title>Template Documentation</title>
+    <parser>
+        <target>docs</target>
+    </parser>
+    <transformer>
+        <target>docs</target>
+    </transformer>
+
+    <files>
+        <directory>.</directory> <!-- Scan and parse all the php files except those found in the paths below -->
+        <!-- Ignore vendor files -->
+        <ignore>vendor/*</ignore> 
+        <ignore>vendor/**/*</ignore> 
+        <!-- Ignore assets files -->
+        <ignore>assets/*</ignore> 
+        <!-- Ignore docs files -->
+        <ignore>docs/*</ignore>
+        <!-- Ignore tests files -->
+        <ignore>tests/*</ignore>
+        <!-- Ignore runtime files -->
+        <ignore>runtime/*</ignore>
+        <!-- Ignore database files -->
+        <ignore>database/*</ignore>
+        <!-- Ignore views files -->
+        <ignore>views/*</ignore>
+        <ignore>custom/giiant/*</ignore>
+        <!-- Ignore index.php files -->
+        <ignore>index.php</ignore>
+    </files>
+</phpdoc>

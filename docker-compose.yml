@@ -27,6 +27,20 @@ services:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
 
+  # uncomment, build to generate docs
+  phpdoc:
+    image: phpdoc/phpdoc:latest
+    volumes:
+      - ./:/var/www/html
+    entrypoint: >
+      /bin/sh -c "
+        cd /var/www/html;
+        phpdoc;
+
+        exit 0;
+      "
+
+  # alternative to adminer
   # phpmyadmin:
   #   image: phpmyadmin/phpmyadmin
   #   depends_on:
@@ -35,6 +49,7 @@ services:
   #   ports:
   #     - 8080:80
 
+  # alternative to phpmyadmin
   adminer:
     image: adminer
     restart: always
