@@ -41,10 +41,10 @@ frontend/node_modules
 
 #=====CUSTOM=====
 
-#mysql database
+# Mysql database
 /database
 
-#generated assets
+# Generated assets
 /web/assets/*
 
 # Giiant genenerated files
