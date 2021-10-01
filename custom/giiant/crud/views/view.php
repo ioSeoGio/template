@@ -97,10 +97,6 @@ $this->params['breadcrumbs'][] = <?= $generator->generateString('View') ?>;
 
     <hr/>
 
-    <?php
-    echo "<?php \$this->beginBlock('{$generator->modelClass}'); ?>\n";
-    ?>
-
     <?= $generator->partialView('detail_prepend', $model); ?>
 
     <?= '<?= ' ?>DetailView::widget([
@@ -212,7 +208,6 @@ EOS;
             echo "<?php Pjax::end() ?>\n";
         endif;
 
-        echo "<?php \$this->endBlock() ?>\n\n";
 
         // build tab items
         $label = Inflector::camel2words($name);
@@ -226,16 +221,5 @@ EOS;
     }
     ?>
 
-    <?=
-    // render tabs
-    "<?= Tabs::widget(
-                 [
-                     'id' => 'relation-tabs',
-                     'encodeLabels' => false,
-                     'items' => [\n $items ]
-                 ]
-    );
-    ?>";
-    ?>
 
 </div>

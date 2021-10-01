@@ -126,58 +126,6 @@ echo "?>\n"
 }
 ?>
 
-        <div class="pull-right">
-
-            <?php
-            $items = '';
-            $model = new $generator->modelClass();
-            ?>
-            <?php foreach ($generator->getModelRelations($model) as $relation): ?>
-                <?php
-                // relation dropdown links
-                $iconType = ($relation->multiple) ? 'arrow-right' : 'arrow-left';
-                if ($generator->isPivotRelation($relation)) {
-                    $iconType = 'random text-muted';
-                }
-                $controller = $generator->pathPrefix.Inflector::camel2id(
-                        StringHelper::basename($relation->modelClass),
-                        '-',
-                        true
-                    );
-                $route = $generator->createRelationRoute($relation, 'index');
-                $label = Inflector::titleize(StringHelper::basename($relation->modelClass), '-', true);
-                $items .= <<<PHP
-            [
-                'url' => ['{$route}'],
-                'label' => '<i class="glyphicon glyphicon-{$iconType}"></i> ' . Yii::t('$generator->modelMessageCategory', '$label'),
-            ],
-                    
-PHP;
-                ?>
-            <?php endforeach; ?>
-
-            <?= "<?= \n" ?>
-            \yii\bootstrap\ButtonDropdown::widget(
-            [
-            'id' => 'giiant-relations',
-            'encodeLabel' => false,
-            'label' => '<span class="glyphicon glyphicon-paperclip"></span> ' . <?= $generator->generateString(
-                'Relations'
-            ) ?>,
-            'dropdown' => [
-            'options' => [
-            'class' => 'dropdown-menu-right'
-            ],
-            'encodeLabels' => false,
-            'items' => [<?= "\n".$items."\n" ?>]
-            ],
-            'options' => [
-            'class' => 'btn-default'
-            ]
-            ]
-            );
-            <?= "?>\n" ?>
-        </div>
     </div>
 
     <hr />

@@ -1,11 +1,10 @@
 <?php
-//'generators' => [
 
 return [
     // Имя генератора
     'giiant-model' => [
         // Класс генератора
-        'class' => 'schmunk42\giiant\generators\model\Generator',
+        'class' => 'app\custom\giiant\model\Generator',
         // Настройки шаблонов
         'templates' => [
             // Имя шаблона => путь к шаблону
@@ -14,7 +13,7 @@ return [
     ],
     'giiant-crud' => [
         // Класс генератора
-        'class' => 'schmunk42\giiant\generators\crud\Generator',
+        'class' => 'app\custom\giiant\crud\Generator',
         // Настройки шаблонов
         'templates' => [
             // Имя шаблона => путь к шаблону
