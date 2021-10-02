@@ -30,12 +30,10 @@ $urlParams = $generator->generateUrlParams();
 echo "<?php\n";
 ?>
 
-use yii\helpers\Html;
-use yii\helpers\Url;
 use yii\grid\GridView;
 use yii\widgets\DetailView;
-use yii\widgets\Pjax;
-use dmstr\bootstrap\Tabs;
+use yii\helpers\Html;
+use yii\helpers\Url;
 
 /**
 * @var yii\web\View $this
@@ -46,19 +44,9 @@ $copyParams = $model->attributes;
 $this->title = Yii::t('<?= $generator->modelMessageCategory ?>', '<?= $modelName ?>');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('<?= $generator->modelMessageCategory ?>', '<?= Inflector::pluralize($modelName) ?>'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => (string)$model-><?= $generator->getNameAttribute() ?>, 'url' => ['view', <?= $urlParams ?>]];
-$this->params['breadcrumbs'][] = <?= $generator->generateString('View') ?>;
 ?>
-<div class="giiant-crud <?= Inflector::camel2id(StringHelper::basename($generator->modelClass), '-', true) ?>-view">
 
-    <!-- flash message -->
-    <?= "<?php if (\\Yii::\$app->session->getFlash('deleteError') !== null) : ?>
-        <span class=\"alert alert-info alert-dismissible\" role=\"alert\">
-            <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">
-            <span aria-hidden=\"true\">&times;</span></button>
-            <?= \\Yii::\$app->session->getFlash('deleteError') ?>
-        </span>
-    <?php endif; ?>" ?>
-
+<div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass), '-', true) ?>-view">
 
     <h1>
         <?= "<?= Yii::t('{$generator->modelMessageCategory}', '{$modelName}') ?>\n" ?>
@@ -73,61 +61,50 @@ $this->params['breadcrumbs'][] = <?= $generator->generateString('View') ?>;
         <!-- menu buttons -->
         <div class='pull-left'>
             <?= '<?= ' ?>Html::a(
-            '<span class="glyphicon glyphicon-pencil"></span> ' . <?= $generator->generateString('Edit') ?>,
-            [ 'update', <?= $urlParams ?>],
-            ['class' => 'btn btn-info']) ?>
+                <?= $generator->generateString('Edit') ?>,
+                [ 'update', <?= $urlParams ?>],
+                ['class' => 'btn btn-info']
+            ) ?>
 
             <?= '<?= ' ?>Html::a(
-            '<span class="glyphicon glyphicon-copy"></span> ' . <?= $generator->generateString('Copy') ?>,
-            ['create', <?= $urlParams ?>, '<?= StringHelper::basename($generator->modelClass) ?>'=>$copyParams],
-            ['class' => 'btn btn-success']) ?>
+                <?= $generator->generateString('Copy') ?>,
+                ['create', <?= $urlParams ?>, '<?= StringHelper::basename($generator->modelClass) ?>'=> $copyParams],
+                ['class' => 'btn btn-success']
+            ) ?>
 
             <?= '<?= ' ?>Html::a(
-            '<span class="glyphicon glyphicon-plus"></span> ' . <?= $generator->generateString('New') ?>,
-            ['create'],
-            ['class' => 'btn btn-success']) ?>
-        </div>
-
-        <div class="pull-right">
-            <?= "<?= " ?>Html::a('<span class="glyphicon glyphicon-list"></span> '
-            . <?= $generator->generateString('Full list') ?>, ['index'], ['class'=>'btn btn-default']) ?>
+                <?= $generator->generateString('New') ?>,
+                ['create'],
+                ['class' => 'btn btn-success']
+            ) ?>
         </div>
 
     </div>
-
-    <hr/>
-
-    <?= $generator->partialView('detail_prepend', $model); ?>
+    <br>
 
     <?= '<?= ' ?>DetailView::widget([
-    'model' => $model,
-    'attributes' => [
-    <?php
-    foreach ($safeAttributes as $attribute) {
-        $format = $generator->attributeFormat($attribute);
-        if (!$format) {
-            continue;
-        } else {
-            echo $format.",\n";
-        }
+        'model' => $model,
+        'attributes' => [
+<?php foreach ($safeAttributes as $attribute):
+    $format = $generator->attributeFormat($attribute);
+    if (!$format) {
+        continue;
+    } else {
+        echo "\t\t\t".trim($format).",\n";
     }
-    ?>
-    ],
+endforeach; ?>
+        ],
     ]); ?>
 
-    <?= $generator->partialView('detail_append', $model); ?>
-
-    <hr/>
-
-    <?= '<?= ' ?>Html::a('<span class="glyphicon glyphicon-trash"></span> ' . <?= $generator->generateString(
-        'Delete'
-    ) ?>, ['delete', <?= $urlParams ?>],
-    [
-    'class' => 'btn btn-danger',
-    'data-confirm' => '' . <?= $generator->generateString('Are you sure to delete this item?') ?> . '',
-    'data-method' => 'post',
-    ]); ?>
-    <?= "<?php \$this->endBlock(); ?>\n\n"; ?>
+    <?= '<?= ' ?>Html::a(
+        <?= $generator->generateString('Delete') ?>, 
+        ['delete', <?= $urlParams ?>],
+        [
+            'class' => 'btn btn-danger',    
+            'data-confirm' => '' . <?= $generator->generateString('Are you sure to delete this item?') ?> .     '',
+            'data-method' => 'post',
+        ]
+    ); ?>
 
     <?php
 

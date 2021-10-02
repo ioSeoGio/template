@@ -26,7 +26,9 @@ if (empty($safeAttributes)) {
 echo "<?php\n";
 ?>
 
+use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /**
 * @var yii\web\View $this
@@ -39,59 +41,49 @@ $this->params['breadcrumbs'][] = ['label' => (string)$model-><?= $generator->get
 ) ?>, 'url' => ['view', <?= $urlParams ?>]];
 $this->params['breadcrumbs'][] = <?= $generator->generateString('Edit') ?>;
 ?>
-<div class="giiant-crud <?= Inflector::camel2id(StringHelper::basename($generator->modelClass), '-', true) ?>-update">
+
+<div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass), '-', true) ?>-update">
 
     <h1>
         <?= "<?= Yii::t('{$generator->modelMessageCategory}', '{$modelName}') ?>" ?>
 
         <small>
             <?php $label = StringHelper::basename($generator->modelClass); ?>
-            <?= '<?= Html::encode($model->'.$generator->getModelNameAttribute($generator->modelClass).") ?>\n" ?>
+<?= '<?= Html::encode($model->'.$generator->getModelNameAttribute($generator->modelClass).") ?>\n" ?>
         </small>
     </h1>
 
     <div class="crud-navigation">
-        <?= '<?= ' ?>Html::a('<span class="glyphicon glyphicon-file"></span> ' . <?= $generator->generateString(
-            'View'
-        ) ?>, ['view', <?= $urlParams ?>], ['class' => 'btn btn-default']) ?>
-    </div>
-
-    <hr />
-
-
-
-
-    <div class="<?= \yii\helpers\Inflector::camel2id(
-        StringHelper::basename($generator->modelClass),
-        '-',
-        true
-    ) ?>-form">
-
-        <?= '<?php ' ?>$form = ActiveForm::begin([
-        'id' => '<?= $model->formName() ?>',
-        'layout' => '<?= $generator->formLayout ?>',
-        'enableClientValidation' => true,
-        'errorSummaryCssClass' => 'error-summary alert alert-danger',
-        'fieldConfig' => [
-                 'template' => "{label}\n{beginWrapper}\n{input}\n{hint}\n{error}\n{endWrapper}",
-                 'horizontalCssClasses' => [
-                     'label' => 'col-sm-2',
-                     #'offset' => 'col-sm-offset-4',
-                     'wrapper' => 'col-sm-8',
-                     'error' => '',
-                     'hint' => '',
-                 ],
-             ],
-        ]
-        );
+        <?= '<?= ' ?>Html::a(
+            <?= $generator->generateString('View') ?>, 
+            ['view', <?= $urlParams ?>], 
+            ['class' => 'btn btn-primary']) 
         ?>
+    </div>
+    <br>
 
-        <div class="">
 
-            <p>
+    <div class="<?= \yii\helpers\Inflector::camel2id(StringHelper::basename($generator->modelClass), '-', true) ?>-form">
+        <?= '<?php ' ?>$form = ActiveForm::begin([
+            'id' => '<?= $model->formName() ?>',
+            'layout' => '<?= $generator->formLayout ?>',
+            'enableClientValidation' => true,
+            'errorSummaryCssClass' => 'error-summary alert alert-danger',
+            'fieldConfig' => [
+                'template' => "{label}\n{beginWrapper}\n{input}\n{hint}\n{error}\n{endWrapper}",
+                'horizontalCssClasses' => [
+                    'label' => 'col-sm-2',
+                    //'offset' => 'col-sm-offset-4',
+                    'wrapper' => 'col-sm-8',
+                    'error' => '',
+                    'hint' => '',
+                ],
+            ],
+        ]); ?>
+
                 <?php
                 foreach ($safeAttributes as $attribute) {
-                    echo "\n\n<!-- attribute $attribute -->";
+                    echo "\n\t\t\t<!-- attribute `$attribute` -->";
                     $prepend = $generator->prependActiveField($attribute, $model);
                     $field = $generator->activeField($attribute, $model);
                     $append = $generator->appendActiveField($attribute, $model);
@@ -105,10 +97,8 @@ $this->params['breadcrumbs'][] = <?= $generator->generateString('Edit') ?>;
                     if ($append) {
                         echo "\n\t\t\t".$append;
                     }
-                }
-                ?>
-
-            </p>
+                    echo "\n\t\t\t<!-- end attribute -->";
+                } ?>
 
             <?php
             $label = substr(strrchr($model::className(), '\\'), 1);
@@ -122,24 +112,15 @@ $this->params['breadcrumbs'][] = <?= $generator->generateString('Edit') ?>;
     EOS;
             ?>
 
-            <hr/>
-
-            <?= '<?php ' ?>echo $form->errorSummary($model); ?>
-
             <?= '<?= ' ?>Html::submitButton(
-            '<span class="glyphicon glyphicon-check"></span> ' .
-            ($model->isNewRecord ? <?= $generator->generateString('Create') ?> : <?= $generator->generateString('Save') ?>),
-            [
-            'id' => 'save-' . $model->formName(),
-            'class' => 'btn btn-success'
-            ]
-            );
-            ?>
+                <?= $generator->generateString('Create') ?>,
+                [
+                    'id' => 'save-' . $model->formName(),
+                    'class' => 'btn btn-success'
+                ]
+            ); ?>
 
-            <?= '<?php ' ?>ActiveForm::end(); ?>
-
-        </div>
-
+        <?= '<?php ' ?>ActiveForm::end(); ?>
     </div>
 
 

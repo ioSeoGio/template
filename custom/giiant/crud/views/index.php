@@ -38,17 +38,15 @@ use <?= $generator->indexWidgetType === 'grid' ? $generator->indexGridClass : 'y
 * @var yii\web\View $this
 * @var yii\data\ActiveDataProvider $dataProvider
 <?php if ($generator->searchModelClass !== ''): ?>
-    * @var <?= ltrim($generator->searchModelClass, '\\') ?> $searchModel
+* @var <?= ltrim($generator->searchModelClass, '\\') ?> $searchModel
 <?php endif; ?>
 */
 
 $this->title = Yii::t(<?= "'{$generator->modelMessageCategory}', '{$modelName}'" ?>);
 $this->params['breadcrumbs'][] = $this->title;
 
-<?php
-if($generator->accessFilter):
-?>
-
+// TODO: deal with permissions generation (seog)
+<?php if($generator->accessFilter): ?>
 /**
 * create action column template depending acces rights
 */
@@ -65,142 +63,119 @@ if (\Yii::$app->user->can('<?=$permisions['update']['name']?>', ['route' => true
 if (\Yii::$app->user->can('<?=$permisions['delete']['name']?>', ['route' => true])) {
     $actionColumnTemplates[] = '{delete}';
 }
-<?php
-endif;
-?>
+<?php endif; ?>
+
 if (isset($actionColumnTemplates)) {
-$actionColumnTemplate = implode(' ', $actionColumnTemplates);
-    $actionColumnTemplateString = $actionColumnTemplate;
+    $actionColumnTemplateString = implode(' ', $actionColumnTemplates);
 } else {
-Yii::$app->view->params['pageButtons'] = Html::a('<span class="glyphicon glyphicon-plus"></span> ' . <?= $generator->generateString('New') ?>, ['create'], ['class' => 'btn btn-success']);
+    Yii::$app->view->params['pageButtons'] = Html::a('<span class="glyphicon glyphicon-plus"></span> ' . <?= $generator->generateString('New') ?>, ['create'], ['class' => 'btn btn-success']);
     $actionColumnTemplateString = "{view} {update} {delete}";
 }
 $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTemplateString.'</div>';
-<?php
-echo '?>';
-?>
+<?= '?>'; ?>
 
-<div class="giiant-crud <?= Inflector::camel2id(StringHelper::basename($generator->modelClass), '-', true) ?>-index">
 
-    <?=
-    "<?php\n".($generator->indexWidgetType === 'grid' ? '// ' : '') ?>
-    <?php if ($generator->searchModelClass !== ''): ?>
-        echo $this->render('_search', ['model' =>$searchModel]);
-    <?php endif; ?>
-    ?>
+<div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass), '-', true) ?>-index">
 
-    <?php if ($generator->indexWidgetType === 'grid'): ?>
+    <?= "<?".($generator->indexWidgetType === 'grid' ? '//' : '') ?>
+<?php if ($generator->searchModelClass !== ''): ?>
+= $this->render('_search', ['model' =>$searchModel]); ?>
+<?php endif; ?>
 
-    <?= "<?php \yii\widgets\Pjax::begin(['id'=>'pjax-main', 'enableReplaceState'=> false, 'linkSelector'=>'#pjax-main ul.pagination a, th a', 'clientOptions' => ['pjax:success'=>'function(){alert(\"yo\")}']]) ?>\n"; ?>
-
+<?php if ($generator->indexWidgetType === 'grid'): ?>
     <h1>
         <?= "<?= Yii::t('{$generator->modelMessageCategory}', '{$modelName}') ?>\n" ?>
         <small>
             List
         </small>
     </h1>
+
     <div class="clearfix crud-navigation">
-<?php
-if($generator->accessFilter){ 
-	echo "<?php\n"
+<?php if($generator->accessFilter) { 
+    echo "\t\t<?php ";
 ?>
-if(\Yii::$app->user->can('<?=$permisions['create']['name']?>', ['route' => true])){
+if(\Yii::$app->user->can('<?=$permisions['create']['name']?>', ['route' => true])): ?>
+            <div class="pull-left">
+                <?= '<?= ' ?>Html::a(
+                    <?= $generator->generateString('New') ?>, 
+                    ['create'], 
+                    ['class' => 'btn btn-success']) 
+                ?>
+            </div>
 <?php
-echo "?>\n"
-?>
-        <div class="pull-left">
-            <?= '<?= ' ?>Html::a('<span class="glyphicon glyphicon-plus"></span> ' . <?= $generator->generateString(
-                'New'
-            ) ?>, ['create'], ['class' => 'btn btn-success']) ?>
-        </div>
-<?php
-	echo "<?php\n}\n?>";
-}else{
-?>
-        <div class="pull-left">
-            <?= '<?= ' ?>Html::a('<span class="glyphicon glyphicon-plus"></span> ' . <?= $generator->generateString(
-                'New'
-            ) ?>, ['create'], ['class' => 'btn btn-success']) ?>
-        </div>
-<?php
-}
-?>
-
+	echo "\t\t<?php endif; ?>\n";
+} ?>
     </div>
-
-    <hr />
 
     <div class="table-responsive">
         <?= '<?= ' ?>GridView::widget([
-        'dataProvider' => $dataProvider,
-        'pager' => [
-        'class' => yii\widgets\LinkPager::className(),
-        'firstPageLabel' => <?= $generator->generateString('First') ?>,
-        'lastPageLabel' => <?= $generator->generateString('Last').",\n" ?>
-        ],
-        <?php if ($generator->searchModelClass !== ''): ?>
-            'filterModel' => $searchModel,
-        <?php endif; ?>
-        'tableOptions' => ['class' => 'table table-striped table-bordered table-hover'],
-        'headerRowOptions' => ['class'=>'x'],
-        'columns' => [
-        <?php
-        $actionButtonColumn = <<<PHP
-        [
-            'class' => '{$generator->actionButtonClass}',
-            'template' => \$actionColumnTemplateString,
-            'buttons' => [
-                'view' => function (\$url, \$model, \$key) {
-                    \$options = [
-                        'title' => Yii::t('{$generator->messageCategory}', 'View'),
-                        'aria-label' => Yii::t('{$generator->messageCategory}', 'View'),
-                        'data-pjax' => '0',
-                    ];
-                    return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', \$url, \$options);
-                }
+            'dataProvider' => $dataProvider,
+            'pager' => [
+                'class' => yii\widgets\LinkPager::className(),
+                'firstPageLabel' => <?= $generator->generateString('First') ?>,
+                'lastPageLabel' => <?= $generator->generateString('Last').",\n" ?>
             ],
-            'urlCreator' => function(\$action, \$model, \$key, \$index) {
-                // using the column name as key, not mapping to 'id' like the standard generator
-                \$params = is_array(\$key) ? \$key : [\$model->primaryKey()[0] => (string) \$key];
-                \$params[0] = \Yii::\$app->controller->id ? \Yii::\$app->controller->id . '/' . \$action : \$action;
-                return Url::toRoute(\$params);
-            },
-            'contentOptions' => ['nowrap'=>'nowrap']
-        ],
-PHP;
+<?php if ($generator->searchModelClass !== ''): ?>
+            'filterModel' => $searchModel,
+<?php endif; ?>
+            'tableOptions' => ['class' => 'table table-striped table-bordered table-hover'],
+            'headerRowOptions' => ['class' => 'x'],
+            'columns' => [
+            <?php
+            $actionButtonColumn = <<<PHP
+        [
+                        'class' => '{$generator->actionButtonClass}',
+                        'template' => \$actionColumnTemplateString,
+                        'buttons' => [
+                            // 'view' => function (\$url, \$model, \$key) {
+                            //     \$options = [
+                            //         'title' => Yii::t('{$generator->messageCategory}', 'View'),
+                            //         'aria-label' => Yii::t('{$generator->messageCategory}', 'View'),
+                            //         'data-pjax' => '0',
+                            //     ];
+                            //     return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', \$url, \$options);
+                            // }
+                        ],
+                        'urlCreator' => function(\$action, \$model, \$key, \$index) {
+                            // using the column name as key, not mapping to 'id' like the standard generator
+                            \$params = is_array(\$key) ? \$key : [\$model->primaryKey()[0] => (string) \$key];
+                            \$params[0] = \Yii::\$app->controller->id ? \Yii::\$app->controller->id . '/' . \$action : \$action;
+                            return Url::toRoute(\$params);
+                        },
+                        'contentOptions' => ['nowrap' => 'nowrap']
+                    ],
+    PHP;
 
-        $count = 0;
-        // action buttons first
-        if ($generator->actionButtonColumnPosition != 'right') {
-            echo $actionButtonColumn;
-            echo "\n"; // code-formatting
-        }
-
-        foreach ($safeAttributes as $attribute) {
-            $format = trim($generator->columnFormat($attribute, $model));
-            if ($format == false) {
-                continue;
+            $count = 0;
+            // action buttons first
+            if ($generator->actionButtonColumnPosition != 'right') {
+                echo $actionButtonColumn;
+                echo "\n"; // code-formatting
             }
-            if (++$count < $generator->gridMaxColumns) {
-                echo "\t\t\t" . str_replace("\n", "\n\t\t\t", $format) . ",\n";
-            } else {
-                echo "\t\t\t/*" . str_replace("\n", "\n\t\t\t", $format) . ",*/\n";
-            }
-        }
 
-        ?>
-        <?php if ($generator->actionButtonColumnPosition == 'right') {
-            echo $actionButtonColumn;
-            echo "\n"; // code-formatting
-        } ?>
-        ]
+            foreach ($safeAttributes as $attribute) {
+                $format = trim($generator->columnFormat($attribute, $model));
+                if ($format == false) {
+                    continue;
+                }
+                if (++$count < $generator->gridMaxColumns) {
+                    echo "\t\t\t\t" . str_replace("\n", "\n\t\t\t", $format) . ",\n";
+                } else {
+                    echo "\t\t\t\t/*" . str_replace("\n", "\n\t\t\t", $format) . ",*/\n";
+                }
+            }
+
+            ?>
+            <?php if ($generator->actionButtonColumnPosition == 'right') {
+                echo $actionButtonColumn;
+                echo "\n"; // code-formatting
+            } ?>
+]
         ]); ?>
     </div>
 
 </div>
 
-
-<?= "<?php \yii\widgets\Pjax::end() ?>\n"; ?>
 
 <?php else: ?>
 
