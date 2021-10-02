@@ -4,6 +4,8 @@ namespace app\custom\giiant;
 
 /**
  * @author ioSeoGio
+ * 
+ * Check if config/console.php controllerMap batch has this class before configuring this class
  */
 class BatchController extends \schmunk42\giiant\commands\BatchController
 {
@@ -27,5 +29,10 @@ class BatchController extends \schmunk42\giiant\commands\BatchController
      */
     public $crudViewPath = '@app/views/crud';
 
+
+    /**
+     * @var bool is interactive console mode enabled
+     */
+    public $interactive = false;
 }
 

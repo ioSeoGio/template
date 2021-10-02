@@ -14,7 +14,8 @@ $config = [
             'class' => 'schmunk42\giiant\commands\BatchController',
             // 'class' => 'app\custom\giiant\BatchController',
             'overwrite' => true,
-            'crudTidyOutput' => false,
+            'crudTidyOutput' => true,
+            'interactive' => false,
 
             'modelNamespace' => 'app\\models',
             'crudControllerNamespace' => 'app\\controllers',
