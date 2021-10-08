@@ -78,7 +78,7 @@ INSTALLATION
     git clone https://github.com/ioSeoGio/template.git
 
 #### Build docker environment 
-    Run docker-compose up -d --build
+Run `docker-compose up -d --build`
 Use -d flag to run docker containers in daemon mode (optional)
 
 #### Go to php container && install vendor files
@@ -88,7 +88,7 @@ Use -d flag to run docker containers in daemon mode (optional)
 
 #### Make migrations to fill database
     php yii migration
-And answer yes to interactive questions
+And answer 'yes' to interactive questions
 
 START OF DEVELOPING
 -------------------
@@ -99,7 +99,7 @@ To fast start after installation:
 
 - `continue to develop main application features`
 
-COMMAND
+COMMANDS
 -------
 
     php yii batch
