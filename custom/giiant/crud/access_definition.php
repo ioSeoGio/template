@@ -16,25 +16,27 @@ $actions = ['index','view','create','update','delete'];
 $permisions = [];
 foreach ($actions as $k => $action){
     $name = $this->getModuleId() 
-            . '_' . $this->getControllerID() 
-            . '_' . $action;
+        . '_' . $this->getControllerID() 
+        . '_' . $action;
+    
     $description = $this->getModuleId() 
-            . '/' . $this->getControllerID() 
-            . '/' . $action;
+        . '/' . $this->getControllerID() 
+        . '/' . $action;
+    
     $permisions[$action] = [
         'name' => $name,
         'description' => $description,
-        ];
+    ];
 }
 
 /**
  * roles dependencies
  */
 $roles = [
-        'Full' => ['index','view','create','update','delete'],
-        'View' => ['index','view'],
-        'Edit' => ['update','create','delete'],
-        ]; 
+    'Full' => ['index', 'view', 'create', 'update', 'delete'],
+    'View' => ['index', 'view'],
+    'Edit' => ['update', 'create', 'delete'],
+]; 
 
 /**
  * create roles name
@@ -42,8 +44,8 @@ $roles = [
 foreach($roles as $role => $roleActons){
     unset($roles[$role]);
     $roleName = Inflector::camelize($this->getModuleId())
-            .Inflector::camelize($this->getControllerID())
-            .$role;
+        .Inflector::camelize($this->getControllerID())
+        .$role;
     $roles[$roleName] = $roleActons;
 }
 

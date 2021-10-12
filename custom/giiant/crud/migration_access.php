@@ -22,7 +22,6 @@ class <?=$generator->migrationClass?> extends Migration
     
     public function up()
     {
-        
         $permisions = [];
         $auth = \Yii::$app->authManager;
 
@@ -35,6 +34,8 @@ class <?=$generator->migrationClass?> extends Migration
             $auth->add($permisions[$action]);
         }
 
+
+        $admin = $auth->getRole('admin');
         /**
          *  create roles
          */
@@ -43,11 +44,16 @@ class <?=$generator->migrationClass?> extends Migration
             $auth->add($role);
 
             /**
-             *  to role assign permissions
+             * to role assign permissions
              */
             foreach ($actions as $action) {
                 $auth->addChild($role, $permisions[$action]);
             }
+
+            /**
+             * each role assign to admin's role
+             */
+            $auth->addChild($admin, $role);
         }
     }
 
@@ -55,12 +61,12 @@ class <?=$generator->migrationClass?> extends Migration
         $auth = Yii::$app->authManager;
 
         foreach ($this->roles as $roleName => $actions) {
-            $role = $auth->createRole($roleName);
+            $role = $auth->getRole($roleName);
             $auth->remove($role);
         }
 
         foreach ($this->permisions as $permission) {
-            $authItem = $auth->createPermission($permission['name']);
+            $authItem = $auth->getPermission($permission['name']);
             $auth->remove($authItem);
         }
     }

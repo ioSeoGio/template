@@ -64,7 +64,6 @@ if (\Yii::$app->user->can('<?=$permisions['delete']['name']?>', ['route' => true
     $actionColumnTemplates[] = '{delete}';
 }
 <?php endif; ?>
-
 if (isset($actionColumnTemplates)) {
     $actionColumnTemplateString = implode(' ', $actionColumnTemplates);
 } else {

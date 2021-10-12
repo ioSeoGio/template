@@ -11,16 +11,18 @@ $config = [
     'controllerNamespace' => 'app\commands',
     'controllerMap' => [
         'batch' => [
-            'class' => 'schmunk42\giiant\commands\BatchController',
-            // 'class' => 'app\custom\giiant\BatchController',
+            // 'class' => 'schmunk42\giiant\commands\BatchController',
+            'class' => 'app\custom\giiant\BatchController',
             'overwrite' => true,
-            'crudTidyOutput' => true,
+            'crudTidyOutput' => false,
             'interactive' => false,
 
             'modelNamespace' => 'app\\models',
             'crudControllerNamespace' => 'app\\controllers',
             'crudSearchModelNamespace' => 'app\\models\\search',
             'crudViewPath' => '@app/views',
+
+            // 'tables' => ['faculties'],
             'skipTables' => [
                 'users', 
 
@@ -36,7 +38,7 @@ $config = [
             // 'overwrite' => true,
 
             'crudAccessFilter' => true,
-            'generateAccessFilterMigrations' => false,
+            'generateAccessFilterMigrations' => true,
 
             // temp off, need to configure
             'useTranslatableBehavior' => false
