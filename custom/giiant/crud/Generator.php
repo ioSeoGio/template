@@ -46,7 +46,7 @@ class Generator extends \schmunk42\giiant\generators\crud\Generator
         if (file_exists($migrationDir) && $migrationDirFiles = glob($migrationDir.'/m*_'.$controllerName.'00_access.php')) {
             $this->migrationClass = pathinfo($migrationDirFiles[0], PATHINFO_FILENAME);
         } else {
-            $this->migrationClass = 'm'.date('ymd_Hi').'00_'.strtolower($controllerName).'_rbac';
+            $this->migrationClass = 'm'.date('ymd_Hi').'00_'.Inflector::underscore($controllerName).'_rbac';
         }
 
         $files[] = new CodeFile($baseControllerFile, $this->render('controller.php', ['accessDefinitions' => $accessDefinitions]));
