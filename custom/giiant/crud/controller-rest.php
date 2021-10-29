@@ -2,6 +2,10 @@
 /**
  * Customizable controller class.
  */
+use yii\helpers\StringHelper;
+
+$modelBasename = StringHelper::baseName($generator->modelClass);
+
 echo "<?php\n";
 ?>
 
@@ -13,70 +17,111 @@ namespace <?= $generator->controllerNs ?>\api;
 use yii\filters\AccessControl;
 use yii\filters\auth\HttpBasicAuth;
 
-class <?= $controllerClassName ?> extends \yii\rest\ActiveController
+use <?= $generator->modelClass ?>;
+
+class <?= $controllerClassName ?> extends \app\custom\BaseApiController
 {
-    public $modelClass = '<?= $generator->modelClass ?>';
+    public $modelClass = <?= $modelBasename ?>::class;
 <?php if ($generator->accessFilter): ?>
 
     /**
     * @inheritdoc
     */
-    public function behaviors()
-    {
-        $behaviours = array_merge(parent::behaviors(), [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'matchCallback' => function ($rule, $action) {
-                            $permissionName = $this->module->id . '_' . $this->id . '_' . $action->id;
-                            
-                            return \Yii::$app->user->can($permissionName, ['route' => true]);
-                        },
-                    ]
-                ]
+    protected function accessRules()
+        return [
+            'class' => \yii\filters\AccessControl::className(),
+            'rules' => [
+                [
+                    'allow' => true,
+                    'matchCallback' => function ($rule, $action) {
+                        $permissionName = $this->module->id . '_' . $this->id . '_' . $action->id;
+                        
+                        return \Yii::$app->user->can($permissionName, ['route' => true]);
+                    },
+                ],
             ]
-        ]);
-
-        $behaviors['authenticator'] = [
-            'class' => HttpBasicAuth::className(),
         ];
-        // remove authentication filter
-        $auth = $behaviors['authenticator'];
-        unset($behaviors['authenticator']);
-        
-        // add CORS filter
-        $behaviors['corsFilter'] = [
-            'class' => \yii\filters\Cors::className(),
-        ];
-        
-        // re-add authentication filter
-        $behaviors['authenticator'] = $auth;
-        
-        $behaviors['authenticator']['only'] = [
-        ];
-        // avoid authentication on CORS-pre-flight requests (HTTP OPTIONS method)
-        $behaviors['authenticator']['except'] = [
-            'options',
-        ];
-
-        return $behaviors;
-        
     }
 <?php endif; ?>
 
-
-    public function actions()
+    /**
+    * @inheritdoc
+    */
+    protected function getAuthExceptActions()
     {
-        $actions = parent::actions();
+        return array_merge(parent::getAuthExceptActions(), [
+        ]);
+    }
 
-        unset($actions['index']);
-        unset($actions['create']);
-        unset($actions['update']);
-        unset($actions['delete']);
+    /**
+    * @inheritdoc
+    */
+    protected function getAuthOnlyActions()
+    {
+        return array_merge(parent::getAuthOnlyActions(), [
+            'create',
+            'update',
+            'delete',
+        ]);
+    }
 
-        return $actions;
+
+    /**
+     * Creates new $this->modelClass
+     *
+     * @param id int
+     * @param 
+     *
+     * @throws \yii\web\UnprocessableEntityHttpException (HTTP 422) When model not saved
+     *
+     * @return $this->modelClass
+     */
+    public function actionCreate()
+    {
+        $model = new $this->modelClass();
+        $attributes = Yii::$app->getRequest()->getBodyParams();
+
+        return $this->updateModel($model, $attributes, 201);
+    }
+
+    /**
+     * Updates $this->modelClass
+     *
+     * @param id int
+     * @param 
+     *
+     * @throws \yii\web\UnprocessableEntityHttpException (HTTP 422) When model not saved
+     *
+     * @return $this->modelClass
+     */
+    public function actionUpdate(int $id)
+    {
+        $model = $this->modelClass::findModel($id);
+        $attributes = Yii::$app->getRequest()->getBodyParams();
+
+        return $this->updateModel($model, $attributes, 201);
+    }
+
+    /**
+     * Deletes the $this->modelClass by id
+     *
+     * @param $id int
+     *
+     * @throws \yii\web\BadRequestException When model deleting failed
+     * @throws \yii\web\NotFoundHttpException When model not found
+     *
+     * @return bool
+     */
+    public function actionDelete(int $id)
+    {
+        if ($model = $this->modelClass::findOne($id)) {
+            if (!$model->delete()) {
+                throw new \yii\web\BadRequestException();
+            }
+            return true;
+        }
+
+        throw new \yii\web\NotFoundHttpException();
     }
 
 }
