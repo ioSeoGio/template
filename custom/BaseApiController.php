@@ -150,4 +150,12 @@ abstract class BaseApiController extends \yii\rest\Controller
         
         \common\helpers\ErrorHelper::throwAllErrors($model);
     }
+
+
+    public function actionIndex(int $size = 50)
+    {
+        $models = $this->modelClass::find()->limit($size)->all();
+
+        return $models;
+    }
 }
