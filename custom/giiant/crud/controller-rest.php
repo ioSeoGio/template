@@ -28,6 +28,7 @@ class <?= $controllerClassName ?> extends \app\custom\BaseApiController
     * @inheritdoc
     */
     protected function accessRules()
+    {
         return [
             'class' => \yii\filters\AccessControl::className(),
             'rules' => [
