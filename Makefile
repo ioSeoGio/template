@@ -6,5 +6,11 @@ php:
 
 rebuild:
 	docker-compose down
-	sudo chmod 777 -R database/
+
+	if [ -a database/ ]; \
+	then \
+		sudo chgrp www-data database/; \
+		sudo chmod g+w database/; \
+	fi;
+
 	docker-compose up -d --build
