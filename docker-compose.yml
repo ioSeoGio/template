@@ -28,9 +28,9 @@ services:
     volumes:
       - "./database/postgres-data:/var/lib/postgresql/data"
     environment:
-      POSTGRES_ROOT_PASSWORD: root
-      POSTGRES_USER: seog
-      POSTGRES_PASSWORD: seog
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: template_db
 
   # uncomment, build to generate docs
   phpdoc:
