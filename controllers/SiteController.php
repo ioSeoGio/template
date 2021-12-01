@@ -7,13 +7,13 @@ use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\Response;
-use app\models\LoginForm;
-use app\models\ContactForm;
-use app\models\SignupForm;
-use app\models\VerifyEmailForm;
-use app\models\PasswordResetRequestForm;
-use app\models\ResendVerificationEmailForm;
-use app\models\ResetPasswordForm;
+use app\models\default\LoginForm;
+use app\models\default\ContactForm;
+use app\models\default\SignupForm;
+use app\models\default\VerifyEmailForm;
+use app\models\default\PasswordResetRequestForm;
+use app\models\default\ResendVerificationEmailForm;
+use app\models\default\ResetPasswordForm;
 
 class SiteController extends Controller
 {
