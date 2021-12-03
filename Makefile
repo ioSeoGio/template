@@ -13,8 +13,7 @@ build:
 db-rights:
 	if [ -d database/ ]; \
 	then \
-		sudo chgrp www-data database/; \
-		sudo chmod g+w database/; \
+		sudo chmod 777 -R database/; \
 	fi;
 
 rights: db-rights

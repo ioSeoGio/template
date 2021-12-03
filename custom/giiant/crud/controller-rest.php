@@ -45,7 +45,6 @@ class <?= $controllerClassName ?> extends \app\custom\BaseApiController
                     'matchCallback' => function ($rule, $action) {
                         $permissionName = $this->module->id . '_' . \yii\helpers\StringHelper::basename($this->id);
                         $permissionName = \yii\helpers\Inflector::camelize($permissionName) . 'Full';
-                        var_dump($permissionName);die;
                         
                         return \Yii::$app->user->can($permissionName, ['route' => true]);
                     },

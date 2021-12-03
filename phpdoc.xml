@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <phpdoc>
-    <title>Template Documentation</title>
+    <title>Documentation</title>
     <parser>
         <target>docs</target>
     </parser>

@@ -22,7 +22,6 @@ $config = [
             'crudSearchModelNamespace' => 'app\\models\\search',
             'crudViewPath' => '@app/views',
 
-            // 'tables' => ['faculties'],
             'skipTables' => [
                 'users', 
 

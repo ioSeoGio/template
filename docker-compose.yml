@@ -16,9 +16,7 @@ services:
       dockerfile: ./docker/php/Dockerfile
     volumes:
       - ./:/var/www/html
-      - ./docker/php:/usr/local/etc/php/custom.d
-    environment:
-      PHP_INI_SCAN_DIR: "/usr/local/etc/php/custom.d:/usr/local/etc/php/conf.d"
+      - ./docker/php/php.ini:/usr/local/etc/php/conf.d/php.ini
 
   db:
     image: postgres:latest

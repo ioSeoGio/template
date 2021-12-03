@@ -2,7 +2,7 @@
 namespace app\rbac;
 
 use yii\rbac\Rule;
-use app\models\User;
+use app\models\default\User;
 
 class UserRule extends Rule
 {
