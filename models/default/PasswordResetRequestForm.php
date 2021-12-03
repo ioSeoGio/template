@@ -4,7 +4,6 @@ namespace app\models\default;
 
 use Yii;
 use yii\base\Model;
-use app\models\User;
 
 /**
  * Password reset request form

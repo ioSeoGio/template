@@ -2,7 +2,7 @@
 
 use yii\db\Migration;
 
-use app\models\User;
+use app\models\default\User;
 
 class m200921_173432_create_table_users extends Migration
 {

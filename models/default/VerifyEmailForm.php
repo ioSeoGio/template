@@ -2,7 +2,6 @@
 
 namespace app\models\default;
 
-use app\models\User;
 use yii\base\InvalidArgumentException;
 use yii\base\Model;
 
