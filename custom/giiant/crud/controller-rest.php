@@ -15,7 +15,6 @@ namespace <?= $generator->controllerNs ?>\api;
 * This is the class for REST controller "<?= $controllerClassName ?>".
 */
 use yii\filters\AccessControl;
-use yii\filters\auth\HttpBasicAuth;
 
 use <?= $generator->modelClass ?>;
 
@@ -75,6 +74,20 @@ class <?= $controllerClassName ?> extends \app\custom\BaseApiController
         ]);
     }
 
+
+    /**
+     * Return list of models
+     *
+     * @param $size int size of returned data
+     *
+     * @return array Models
+     */
+    public function actionIndex(int $size = 50)
+    {
+        $models = $this->modelClass::find()->limit($size)->all();
+
+        return $models;
+    }
 
     /**
      * Creates new $this->modelClass

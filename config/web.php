@@ -3,9 +3,15 @@
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 $i18n = require __DIR__ . '/i18n.php';
+$language = require __DIR__ . '/language_settings.php';
 
-$config = [
-    'id' => 'basic',
+$config = array_merge($language, [
+    'id' => 'app',
+    'name' => 'Application Name',
+
+    // 'language' => 'ru-RU',
+    // 'sourceLanguage' => 'en-US',
+
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
@@ -49,15 +55,19 @@ $config = [
         ],
         'db' => $db,
         'urlManager' => [
+            'class' => 'codemix\localeurls\UrlManager',
+            'languages' => ['ru-RU'],
+
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                
             ],
         ],
         'i18n' => $i18n,
     ],
     'params' => $params,
-];
+]);
 
 if (YII_ENV_DEV) {
     $generators = require __DIR__ . '/gii_generators.php';

@@ -59,6 +59,7 @@ For configuration see config/ directory
 - `config/db.php` - config of db
 - `config/gii_generators.php` - list of gii_generators
 - `config/i18n.php` - config of internationalization
+- `config/language_settings.php` - config of languages
 - `config/params.php` - params of app
 
 - `config/test.php` - temporary not in use
@@ -101,6 +102,8 @@ To fast start after installation:
 
 COMMANDS
 -------
+    php yii message/extract @app/message/config.php
+Extract Yii:t() messages from code & make files with messages which will be used to load in database
 
     php yii batch
 Run custom gii generator

@@ -3,9 +3,11 @@
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 $i18n = require __DIR__ . '/i18n.php';
+$language = require __DIR__ . '/language_settings.php';
 
-$config = [
-    'id' => 'basic-console',
+$config = array_merge($language, [
+    'id' => 'app',
+
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'app\commands',
@@ -75,7 +77,7 @@ $config = [
         ],
     ],
     */
-];
+]);
 
 if (YII_ENV_DEV) {
     $generators = require __DIR__ . '/gii_generators.php';
