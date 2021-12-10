@@ -9,14 +9,12 @@ $config = array_merge($language, [
     'id' => 'app',
     'name' => 'Application Name',
 
-    // 'language' => 'ru-RU',
-    // 'sourceLanguage' => 'en-US',
-
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
+        '@admin' => '@app/modules/admin',
     ],
     'components' => [
         'authManager' => [
@@ -61,7 +59,11 @@ $config = array_merge($language, [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'api/<controller>' => 'admin/api/<controller>',
+                'api/<controller>/<action>' => 'admin/api/<controller>/<action>',
                 
+                'api/<controller>' => 'api/<controller>',
+                'api/<controller>/<action>' => 'api/<controller>/<action>',
             ],
         ],
         'i18n' => $i18n,

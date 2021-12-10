@@ -18,8 +18,10 @@ $config = array_merge($language, [
             'overwrite' => true,
             'crudTidyOutput' => false,
             'interactive' => false,
-
+            
+            'modelBaseClass' => 'app\\custom\\ActiveRecord',
             'modelNamespace' => 'app\\models',
+            'crudPathPrefix' => null,
             'crudControllerNamespace' => 'app\\controllers',
             'crudSearchModelNamespace' => 'app\\models\\search',
             'crudViewPath' => '@app/views',
@@ -36,6 +38,7 @@ $config = array_merge($language, [
 
             'template' => 'seog_template',
             'crudTemplate' => 'seog_template',
+            // whether to overwrite files
             // 'overwrite' => true,
 
             'crudAccessFilter' => true,

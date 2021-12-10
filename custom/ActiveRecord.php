@@ -44,4 +44,21 @@ class ActiveRecord extends \yii\db\ActiveRecord {
 
 		return false;
 	}
+
+    public function fields()
+    {
+        $fields = parent::fields();
+        
+        $fields['related'] = function () {
+            return $this->relatedRecords;
+        };
+        
+        return $fields;
+    }
+
+	public static function findWithRelated(array $attributes, array $related = [])
+	{
+        return static::find($attributes)
+            ->with($related);
+	}
 }

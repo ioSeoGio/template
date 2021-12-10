@@ -15,6 +15,11 @@ class BatchController extends \schmunk42\giiant\commands\BatchController
     public $modelNamespace = 'app\\models';
 
     /**
+     * @var string base class for the generated models
+     */
+    public $modelBaseClass = 'app\\custom\\ActiveRecord';
+
+    /**
      * @var string namespace path for crud controller
      */
     public $crudControllerNamespace = 'app\\controllers\\crud';

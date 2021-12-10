@@ -8,7 +8,6 @@ use yii\gii\CodeFile;
 use yii\helpers\Inflector;
 use yii\helpers\StringHelper;
 
-
 class Generator extends \schmunk42\giiant\generators\model\Generator
 {
 	public $baseClass = 'app\custom\ActiveRecord';

@@ -21,4 +21,18 @@ class AppAsset extends AssetBundle
         
         'app\assets\AngularAsset',
     ];
+
+    public function init() {
+        // In JS use: yiiGlobal.test, etc.
+        $options = [
+            'test' => Url::to(['test/test']),
+            
+            'authKey' => Yii::$app->user->identity?->access_token,
+        ];
+        Yii::$app->view->registerJs(
+            "const yiiGlobal = " . Json::htmlEncode($options).";",
+            View::POS_HEAD,
+            'yiiGlobal'
+        );
+    }
 }

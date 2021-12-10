@@ -45,22 +45,21 @@ use <?= $generator->indexWidgetType === 'grid' ? $generator->indexGridClass : 'y
 $this->title = Yii::t(<?= "'{$generator->modelMessageCategory}', '{$modelName}'" ?>);
 $this->params['breadcrumbs'][] = $this->title;
 
-// TODO: deal with permissions generation (seog)
 <?php if($generator->accessFilter): ?>
 /**
 * create action column template depending acces rights
 */
 $actionColumnTemplates = [];
 
-if (\Yii::$app->user->can('<?=$permisions['view']['name']?>', ['route' => true])) {
+if (\Yii::$app->user->can('<?= $permisions['view']['name']?>', ['route' => true])) {
     $actionColumnTemplates[] = '{view}';
 }
 
-if (\Yii::$app->user->can('<?=$permisions['update']['name']?>', ['route' => true])) {
+if (\Yii::$app->user->can('<?= $permisions['update']['name']?>', ['route' => true])) {
     $actionColumnTemplates[] = '{update}';
 }
 
-if (\Yii::$app->user->can('<?=$permisions['delete']['name']?>', ['route' => true])) {
+if (\Yii::$app->user->can('<?= $permisions['delete']['name']?>', ['route' => true])) {
     $actionColumnTemplates[] = '{delete}';
 }
 <?php endif; ?>

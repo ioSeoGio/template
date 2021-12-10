@@ -14,7 +14,7 @@ class ResetPasswordForm extends Model
     public $password;
 
     /**
-     * @var \app\models\User
+     * @var \app\models\default\User
      */
     private $_user;
 

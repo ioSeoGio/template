@@ -40,6 +40,8 @@ class m200921_173432_create_table_users extends Migration
             'email' => 'admin@gmail.com',
             'status' => User::STATUS_ACTIVE,
             'role' => User::ROLE_ADMIN,
+
+            'access_token' => Yii::$app->security->generateRandomString() . '_' . time(),
         ]);
     }
 

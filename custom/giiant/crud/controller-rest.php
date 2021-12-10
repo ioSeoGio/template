@@ -82,9 +82,12 @@ class <?= $controllerClassName ?> extends \app\custom\BaseApiController
      *
      * @return array Models
      */
-    public function actionIndex(int $size = 50)
+    public function actionIndex(int $size = 50, int $offset = 0)
     {
-        $models = $this->modelClass::find()->limit($size)->all();
+        $models = $this->modelClass::find()
+            ->offset($offset)
+            ->limit($size)
+            ->all();
 
         return $models;
     }
