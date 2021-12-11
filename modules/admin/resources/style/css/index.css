@@ -1,0 +1,12 @@
+.wrap {
+  display: flex;
+}
+.wrap .container {
+  width: 100%;
+  background-color: #F0F4F5;
+  background-color: red !important;
+  justify-content: flex-start;
+  padding-top: 30px;
+}
+
+/*# sourceMappingURL=index.css.map */

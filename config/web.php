@@ -54,7 +54,7 @@ $config = array_merge($language, [
         'db' => $db,
         'urlManager' => [
             'class' => 'codemix\localeurls\UrlManager',
-            'languages' => ['ru-RU'],
+            'languages' => ['ru' => 'ru-RU'],
 
             'enablePrettyUrl' => true,
             'showScriptName' => false,
@@ -65,8 +65,17 @@ $config = array_merge($language, [
                 'api/<controller>' => 'api/<controller>',
                 'api/<controller>/<action>' => 'api/<controller>/<action>',
             ],
+            'ignoreLanguageUrlPatterns' => [
+                // route pattern => url pattern
+                // '#^admin/#' => '#^admin/#',
+            ],
         ],
         'i18n' => $i18n,
+    ],
+    'modules' => [
+        'admin' => [
+            'class' => 'app\modules\admin\Module',
+        ],
     ],
     'params' => $params,
 ]);

@@ -1,0 +1,10 @@
+.wrap {
+    display: flex;
+    .container {
+        width: 100%;
+        background-color: #F0F4F5;
+        background-color: red !important;
+        justify-content: flex-start;
+        padding-top: 30px;
+    }
+}
