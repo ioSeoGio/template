@@ -13,9 +13,11 @@ class m200921_173432_create_table_users extends Migration
             $tableOptions = 'CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE=InnoDB';
         }
 
+        $timestampColumns = require __DIR__ . DIRECTORY_SEPARATOR . '_migration_timestamp_columns.php';
+
         $this->createTable(
             '{{%users}}',
-            [
+            array_merge([
                 'id' => $this->primaryKey(),
                 'username' => $this->string(64)->notNull(),
                 'email' => $this->string(64)->notNull(),
@@ -27,9 +29,7 @@ class m200921_173432_create_table_users extends Migration
                 'role' => $this->integer()->notNull()->defaultValue(User::ROLE_USER),
                 
                 'status' => $this->integer()->notNull()->defaultValue(User::STATUS_INACTIVE),
-                'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
-                'updated_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
-            ],
+            ], $timestampColumns),
             $tableOptions
         );
 
