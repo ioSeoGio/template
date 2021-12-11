@@ -43,6 +43,15 @@ class m200921_173432_create_table_users extends Migration
 
             'access_token' => Yii::$app->security->generateRandomString() . '_' . time(),
         ]);
+        $this->insert('{{%users}}', [
+            'username' => 'moderator',
+            //12345678
+            'password_hash' => '$2y$13$F2g0DJS8xzflDVLQ7Yzsm.51FGx1bDLBYFO9hOoVX1vv9u7PH1VR.',
+            'email' => 'moderator@gmail.com',
+            'status' => User::STATUS_ACTIVE,
+            'role' => User::ROLE_MODERATOR,
+            'access_token' => Yii::$app->security->generateRandomString() . '_' . time(),
+        ]);
     }
 
     public function down()

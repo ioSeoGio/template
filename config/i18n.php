@@ -2,7 +2,8 @@
 
 return [
     'translations' => [
-        'app' => [
+        // 'app' => [
+        '*' => [
             // 'class' => 'yii\i18n\DbMessageSource',
             'class' => 'app\custom\DbMessageSource',
             'messageTable' => '{{%message}}',

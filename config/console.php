@@ -27,7 +27,7 @@ $config = array_merge($language, [
             'crudViewPath' => '@app/views',
 
             'skipTables' => [
-                'users', 
+                // 'users', 
 
                 'auth_assignment', 
                 'auth_item', 

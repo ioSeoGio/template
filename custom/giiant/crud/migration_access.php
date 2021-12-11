@@ -36,6 +36,7 @@ class <?=$generator->migrationClass?> extends Migration
 
 
         $admin = $auth->getRole('admin');
+        $moderator = $auth->getRole('moderator');
         /**
          *  create roles
          */
@@ -54,6 +55,17 @@ class <?=$generator->migrationClass?> extends Migration
              * each role assign to admin's role
              */
             $auth->addChild($admin, $role);
+
+            /**
+             * each role except UserFull & UserEdit (only UserView)
+             */
+<?php if (array_key_exists('AppUserFull', $accessDefinitions['roles'])): ?>
+            if ($roleName === 'AppUserView') {
+                $auth->addChild($moderator, $role);
+            }
+<?php else: ?>
+            $auth->addChild($moderator, $role);
+<?php endif; ?>
         }
     }
 
