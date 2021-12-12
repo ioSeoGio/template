@@ -84,7 +84,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
     <h1>
         <?= "<?= Yii::t('{$generator->modelMessageCategory}', '{$modelName}') ?>\n" ?>
         <small>
-            List
+            <?= "<?= Yii::t('cruds', 'List') ?>" ?>
         </small>
     </h1>
 
@@ -92,7 +92,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 <?php if($generator->accessFilter) { 
     echo "\t\t<?php ";
 ?>
-if(\Yii::$app->user->can('<?=$permisions['create']['name']?>', ['route' => true])): ?>
+if(\Yii::$app->user->can('<?= $permisions['create']['name']?>', ['route' => true])): ?>
             <div class="pull-left">
                 <?= '<?= ' ?>Html::a(
                     <?= $generator->generateString('New') ?>, 
@@ -101,7 +101,7 @@ if(\Yii::$app->user->can('<?=$permisions['create']['name']?>', ['route' => true]
                 ?>
             </div>
 <?php
-	echo "\t\t<?php endif; ?>\n";
+    echo "\t\t<?php endif; ?>\n";
 } ?>
     </div>
 
@@ -162,7 +162,6 @@ if(\Yii::$app->user->can('<?=$permisions['create']['name']?>', ['route' => true]
                     echo "\t\t\t\t/*" . str_replace("\n", "\n\t\t\t", $format) . ",*/\n";
                 }
             }
-
             ?>
             <?php if ($generator->actionButtonColumnPosition == 'right') {
                 echo $actionButtonColumn;

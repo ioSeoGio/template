@@ -113,7 +113,7 @@ $this->params['breadcrumbs'][] = <?= $generator->generateString('Edit') ?>;
             ?>
 
             <?= '<?= ' ?>Html::submitButton(
-                <?= $generator->generateString('Create') ?>,
+                <?= $generator->generateString('Save') ?>,
                 [
                     'id' => 'save-' . $model->formName(),
                     'class' => 'btn btn-success'
