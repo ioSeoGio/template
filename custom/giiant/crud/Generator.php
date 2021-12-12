@@ -35,7 +35,7 @@ class Generator extends \schmunk42\giiant\generators\crud\Generator
         }
 
         $controllerFile = Yii::getAlias('@'.str_replace('\\', '/', ltrim($this->controllerClass, '\\')).'.php');
-        $baseControllerFile = StringHelper::dirname($controllerFile).'/base/'.StringHelper::basename($controllerFile);
+        // $baseControllerFile = StringHelper::dirname($controllerFile).'/base/'.StringHelper::basename($controllerFile);
         $restControllerFile = Yii::getAlias($this->apiControllersNamespace).StringHelper::basename($controllerFile);
 
         /*
@@ -50,8 +50,9 @@ class Generator extends \schmunk42\giiant\generators\crud\Generator
             $this->migrationClass = 'm'.date('ymd_Hi').'00_'.Inflector::underscore($controllerName).'_rbac';
         }
 
-        $files[] = new CodeFile($baseControllerFile, $this->render('controller.php', ['accessDefinitions' => $accessDefinitions]));
+        // $files[] = new CodeFile($baseControllerFile, $this->render('controller.php', ['accessDefinitions' => $accessDefinitions]));
         $params['controllerClassName'] = \yii\helpers\StringHelper::basename($this->controllerClass);
+        $params['accessDefinitions'] = $accessDefinitions;
 
         if ($this->overwriteControllerClass || !is_file($controllerFile)) {
             $files[] = new CodeFile($controllerFile, $this->render('controller-extended.php', $params));

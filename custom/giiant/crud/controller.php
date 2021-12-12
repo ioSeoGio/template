@@ -62,24 +62,21 @@ if ($traits) {
 ?>
 
 <?php if ($generator->accessFilter): ?>
-    /**
-    * @inheritdoc
-    */
     public function behaviors()
     {
-        return [];
-    }
-
-    public function access_rules()
-    {
         return [
+            'access' => [
+                'class' => \yii\filters\AccessControl::className(),
+                'rules' => array_merge(parent::access_rules(), [
 <?php foreach($accessDefinitions['roles'] as $roleName => $actions): ?>
-            [
-                'allow' => true,
-                'actions' => ['<?=implode("', '",$actions)?>'],
-                'roles' => ['<?=$roleName?>'],
-            ],
+                    [
+                        'allow' => true,
+                        'actions' => ['<?=implode("', '",$actions)?>'],
+                        'roles' => ['<?=$roleName?>'],
+                    ],
 <?php endforeach; ?>
+                ]),
+            ],
         ];
     }
 
@@ -150,7 +147,7 @@ if ($traits) {
         $model = $this->findModel(<?= $actionParams ?>);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(Url::previous());
+            return $this->redirect('index');
         }
         
         return $this->render('update', [
@@ -168,7 +165,7 @@ if ($traits) {
     {
         $this->findModel(<?= $actionParams ?>)->delete();
         
-        return $this->redirect(Url::previous());
+        return $this->redirect('index');
     }
 
     /**
