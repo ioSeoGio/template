@@ -24,11 +24,12 @@ class m200921_173432_create_table_users extends Migration
                 'password_hash' => $this->string(64)->notNull(),
 
                 'auth_key' => $this->string(64),
+                'access_token' => $this->string(64),
                 'password_reset_token' => $this->string(64),
                 'verification_token' => $this->string(64),
                 'role' => $this->integer()->notNull()->defaultValue(User::ROLE_USER),
                 
-                'status' => $this->integer()->notNull()->defaultValue(User::STATUS_INACTIVE),
+                'status' => $this->integer()->notNull()->defaultValue(User::STATUS_ACTIVE),
             ], $timestampColumns),
             $tableOptions
         );
