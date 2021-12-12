@@ -115,6 +115,9 @@ abstract class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass,
 <?php if ($timestamp['updatedAtAttribute'] !== 'updated_at'): ?>
                 'updatedAtAttribute' => <?= $timestamp['updatedAtAttribute'] ? "'" . $timestamp['updatedAtAttribute'] . "'" : 'false' ?>,
 <?php endif; ?>
+                'value' => function ($event) {
+                    return date("Y-m-d H:i:s");
+                }
             ],
 <?php endif; ?>
 <?php if (isset($translation)): ?>

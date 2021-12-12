@@ -8,6 +8,8 @@ use yii\helpers\Url;
 
 class Menu extends Widget
 {
+    const WITHOUT_GROUP = 'Без группы';
+
     public function init()
     {
         parent::init();
@@ -19,18 +21,15 @@ class Menu extends Widget
         $content = ob_get_clean();
 
         $menu = [
-            'Тест' => [
-                'Тест' => Url::to(['test/test']),
-            ],
-            'Прочее' => [
-                'Тест' => Url::to(['test/test']),
-            ],
             'Без группы' => [
+                Yii::t('cruds', 'Дефаулт') => Url::to(['/admin/default/index']),
             ],
         ];
 
         
         return $this->render('menu', [
+            'widgetClass' => $this->className(),
+
             'content' => $content,
             'menu' => $menu,
         ]);

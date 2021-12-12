@@ -87,6 +87,9 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            if (Yii::$app->user->can('moderator')) {
+                return $this->redirect(['/admin/default/index']);
+            }
             return $this->goBack();
         }
 
