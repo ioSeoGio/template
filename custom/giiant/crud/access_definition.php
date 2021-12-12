@@ -15,11 +15,11 @@ $actions = ['index','view','create','update','delete'];
  */
 $permisions = [];
 foreach ($actions as $k => $action){
-    $name = $this->getModuleId() 
+    $name = 'app'
         . '_' . $this->getControllerID() 
         . '_' . $action;
     
-    $description = $this->getModuleId() 
+    $description = 'app'
         . '/' . $this->getControllerID() 
         . '/' . $action;
     
