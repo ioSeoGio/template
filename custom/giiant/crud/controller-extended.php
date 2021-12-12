@@ -50,7 +50,7 @@ use <?= ltrim(
 /**
 * <?= $controllerClass ?> implements the CRUD actions for <?= $modelClass ?> model.
 */
-class <?= $controllerClass ?> extends \yii\base\Controller
+class <?= $controllerClass ?> extends \yii\web\Controller
 {
 <?php
 $traits = $generator->baseTraits;
