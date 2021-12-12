@@ -9,7 +9,7 @@ migrate:
 
 build:
 	docker-compose up -d --build
-	
+
 db-rights:
 	if [ -d database/ ]; \
 	then \
@@ -21,6 +21,10 @@ rights: db-rights
 	sudo chmod 777 -R runtime/
 
 	sudo chmod 777 -R migrations/
+	sudo chmod 777 -R vendor/
+
+up:
+	docker-compose up -d
 
 down:
 	docker-compose down

@@ -21,7 +21,8 @@
         "schmunk42/yii2-giiant": "@stable",
         "2amigos/yii2-translateable-behavior": "*",
         "bower-asset/angular": "^1.8",
-        "bower-asset/angular-route": "^1.8"
+        "bower-asset/angular-route": "^1.8",
+        "codemix/yii2-localeurls": "^1.7"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

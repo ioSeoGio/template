@@ -2,6 +2,8 @@
 
 use yii\db\Migration;
 
+use app\helpers\FilesystemHelper;
+
 class m211207_144248_create_i18n_tables extends Migration
 {
     /**
@@ -37,7 +39,7 @@ class m211207_144248_create_i18n_tables extends Migration
         $allLanguagesPairs = FilesystemHelper::getPairsOfTranslations();
 
         // Be sure that pairs of arrays in allLanguagesPairs = number of languages here
-        $languages = [$mainTranslateLanguage];
+        $languages = $allLanguagesPairs ? [$mainTranslateLanguage] : [];
 
         $messageIdCounter = 1;
         foreach ($allLanguagesPairs as $message => $translations) {

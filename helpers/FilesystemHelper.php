@@ -11,9 +11,9 @@ class FilesystemHelper {
         $mainCategory = Yii::$app->id;
         $mainTranslateLanguage = Yii::$app->language;
         
-        $ua_pairs = require __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'message' . DIRECTORY_SEPARATOR . $mainTranslateLanguage . DIRECTORY_SEPARATOR . $mainCategory . '.php';
+        $ru_pairs = require __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'message' . DIRECTORY_SEPARATOR . $mainTranslateLanguage . DIRECTORY_SEPARATOR . $mainCategory . '.php';
         
-        $allLanguagesPairs = array_merge_recursive($ua_pairs);
+        $allLanguagesPairs = array_merge_recursive($ru_pairs);
 		
 		return $allLanguagesPairs;
 	}
