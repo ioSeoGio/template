@@ -31,7 +31,7 @@ $actionParamComments = $generator->generateActionParamComments();
 echo "<?php\n";
 ?>
 
-namespace <?= StringHelper::dirname(ltrim($generator->controllerClass, '\\')) ?>\base;
+namespace <?= StringHelper::dirname(ltrim($generator->controllerClass, '\\')) ?>;
 
 use Yii;
 use yii\web\HttpException;
@@ -50,7 +50,7 @@ use <?= ltrim(
 /**
 * <?= $controllerClass ?> implements the CRUD actions for <?= $modelClass ?> model.
 */
-class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->baseControllerClass)."\n" ?>
+class <?= $controllerClass ?> extends \yii\base\Controller
 {
 <?php
 $traits = $generator->baseTraits;
@@ -65,7 +65,7 @@ if ($traits) {
         return [
             'access' => [
                 'class' => \yii\filters\AccessControl::className(),
-                'rules' => array_merge(parent::access_rules(), [
+                'rules' => [
 <?php foreach($accessDefinitions['roles'] as $roleName => $actions): ?>
                     [
                         'allow' => true,
@@ -73,7 +73,7 @@ if ($traits) {
                         'roles' => ['<?=$roleName?>'],
                     ],
 <?php endforeach; ?>
-                ]),
+                ],
             ],
         ];
     }

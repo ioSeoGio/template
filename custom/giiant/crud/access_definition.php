@@ -43,7 +43,8 @@ $roles = [
  */
 foreach($roles as $role => $roleActons){
     unset($roles[$role]);
-    $roleName = Inflector::camelize($this->getModuleId())
+    // $roleName = Inflector::camelize($this->getModuleId())
+    $roleName = Inflector::camelize('app')
         .Inflector::camelize($this->getControllerID())
         .$role;
     $roles[$roleName] = $roleActons;
