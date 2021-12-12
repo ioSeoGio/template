@@ -22,12 +22,13 @@ $config = array_merge($language, [
             'modelBaseClass' => 'app\\custom\\ActiveRecord',
             'modelNamespace' => 'app\\models',
             'crudPathPrefix' => null,
-            'crudControllerNamespace' => 'app\\controllers',
             'crudSearchModelNamespace' => 'app\\models\\search',
-            'crudViewPath' => '@app/views',
+            
+            'crudViewPath' => '@admin/views',
+            'crudControllerNamespace' => 'app\\modules\\admin\\controllers',
 
             'skipTables' => [
-                // 'users', 
+                'users', 
 
                 'auth_assignment', 
                 'auth_item', 

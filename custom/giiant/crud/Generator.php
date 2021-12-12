@@ -11,11 +11,12 @@ use schmunk42\giiant\helpers\SaveForm;
 
 class Generator extends \schmunk42\giiant\generators\crud\Generator
 {
-	/**
-	 * @var bool whether generate messages for translations for crud
-	 */
-	public $generateMessages = false;
-
+    /**
+     * @var bool whether generate messages for translations for crud
+     */
+    public $generateMessages = false;
+    public $apiControllersNamespace = '@app/controllers/api/';
+    public $migrationsNamespace = '@app/migrations/';
 
     public function generate()
     {
@@ -35,13 +36,13 @@ class Generator extends \schmunk42\giiant\generators\crud\Generator
 
         $controllerFile = Yii::getAlias('@'.str_replace('\\', '/', ltrim($this->controllerClass, '\\')).'.php');
         $baseControllerFile = StringHelper::dirname($controllerFile).'/base/'.StringHelper::basename($controllerFile);
-        $restControllerFile = StringHelper::dirname($controllerFile).'/api/'.StringHelper::basename($controllerFile);
+        $restControllerFile = Yii::getAlias($this->apiControllersNamespace).StringHelper::basename($controllerFile);
 
         /*
          * search generated migration and overwrite it or create new
          */
-        $migrationDir = StringHelper::dirname(StringHelper::dirname($controllerFile))
-                    .'/migrations';
+        // $migrationDir = StringHelper::dirname(StringHelper::dirname($controllerFile)).'/migrations';
+        $migrationDir = Yii::getAlias($this->migrationsNamespace);
 
         if (file_exists($migrationDir) && $migrationDirFiles = glob($migrationDir.'/m*_'.$controllerName.'00_access.php')) {
             $this->migrationClass = pathinfo($migrationDirFiles[0], PATHINFO_FILENAME);
@@ -88,27 +89,27 @@ class Generator extends \schmunk42\giiant\generators\crud\Generator
             $files[] = new CodeFile($migrationFile, $this->render('migration_access.php', ['accessDefinitions' => $accessDefinitions]));
 
             if ($this->generateMessages) {
-            	/*
-            	 * access roles translation
-            	 */
-            	$forRoleTranslationFile = StringHelper::dirname(StringHelper::dirname($controllerFile))
+                /*
+                 * access roles translation
+                 */
+                $forRoleTranslationFile = StringHelper::dirname(StringHelper::dirname($controllerFile))
                     .'/messages/for-translation/'
                     .$controllerName.'.php';
-            	$files[] = new CodeFile($forRoleTranslationFile, $this->render('roles-translation.php', ['accessDefinitions' => $accessDefinitions]));
+                $files[] = new CodeFile($forRoleTranslationFile, $this->render('roles-translation.php', ['accessDefinitions' => $accessDefinitions]));
             }
         }
 
         /*
          * create gii/[name]GiantCRUD.json with actual form data
          */
-        $suffix = str_replace(' ', '', $this->getName());
-        $controllerFileinfo = pathinfo($controllerFile);
-        $formDataFile = StringHelper::dirname(StringHelper::dirname($controllerFile))
-                .'/gii/'
-                .str_replace('Controller', $suffix, $controllerFileinfo['filename']).'.json';
+        // $suffix = str_replace(' ', '', $this->getName());
+        // $controllerFileinfo = pathinfo($controllerFile);
+        // $formDataFile = StringHelper::dirname(StringHelper::dirname($controllerFile))
+                // .'/gii/'
+                // .str_replace('Controller', $suffix, $controllerFileinfo['filename']).'.json';
         //$formData = json_encode($this->getFormAttributesValues());
-        $formData = json_encode(SaveForm::getFormAttributesValues($this, $this->formAttributes()));
-        $files[] = new CodeFile($formDataFile, $formData);
+        // $formData = json_encode(SaveForm::getFormAttributesValues($this, $this->formAttributes()));
+        // $files[] = new CodeFile($formDataFile, $formData);
 
         return $files;
     }
