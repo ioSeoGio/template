@@ -8,16 +8,24 @@ use yii\helpers\StringHelper;
     <div class="dropdown-menu-1">
 
         <?php foreach ($menu as $groupName => $records): ?>
-            <?php if ($groupName == 'Без группы'): ?>
-                <?php foreach ($records as $label => $url): ?>
-                    <a class="dropdown-item <?= StringHelper::dirname(Yii::$app->request->url) === StringHelper::dirname($url) ? 'active' : '' ?>" href="<?= $url ?>"><?= $label ?></a>
+            <?php if ($groupName == Yii::t('app', 'Without group')): ?>
+                <?php foreach ($records as $row): ?>
+
+                    <?php if ($row['can']): ?>
+                        <a class="dropdown-item <?= StringHelper::dirname(Yii::$app->request->url) === StringHelper::dirname($row['url']) ? 'active' : '' ?>" href="<?= $row['url'] ?>"><?= $row['name'] ?></a>
+                    <?php endif; ?>
+
                 <?php endforeach; ?>
 
             <?php else: ?>
                 <div class="group">
                     <span class="devider"><?= $groupName ?></span>
-                    <?php foreach ($records as $label => $url): ?>
-                        <a class="dropdown-item <?= StringHelper::dirname(Yii::$app->request->url) === StringHelper::dirname($url) ? 'active' : '' ?>" href="<?= $url ?>"><?= $label ?></a>
+                    <?php foreach ($records as $row): ?>
+
+                        <?php if ($row['can']): ?>
+                            <a class="dropdown-item <?= StringHelper::dirname(Yii::$app->request->url) === StringHelper::dirname($row['url']) ? 'active' : '' ?>" href="<?= $row['url'] ?>"><?= $row['name'] ?></a>
+                        <?php endif; ?>
+
                     <?php endforeach; ?>
                 </div>
             <?php endif; ?>

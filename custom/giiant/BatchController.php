@@ -2,6 +2,8 @@
 
 namespace app\custom\giiant;
 
+use yii\helpers\Inflector;
+
 /**
  * @author ioSeoGio
  * 
@@ -9,35 +11,50 @@ namespace app\custom\giiant;
  */
 class BatchController extends \schmunk42\giiant\commands\BatchController
 {
-    /**
-     * @var string namespace path for model classes
-     */
-    public $modelNamespace = 'app\\models';
+    public $overwriteAdminMenu = false;
 
-    /**
-     * @var string base class for the generated models
-     */
-    public $modelBaseClass = 'app\\custom\\ActiveRecord';
+    public function actionIndex()
+    {
+        // echo "Running full giiant batch...\n";
+        // $this->actionModels();
+        // $this->actionCruds();
+        parent::actionIndex();
 
-    /**
-     * @var string namespace path for crud controller
-     */
-    public $crudControllerNamespace = 'app\\controllers\\crud';
+        $this->actionAdminMenu();
+    }
 
-    /**
-     * @var string namespace path for crud search models
-     */
-    public $crudSearchModelNamespace = 'app\\models\\search';
+    public function actionAdminMenu()
+    {
+        foreach ($this->tables as $tableName) {
+            if (isset($this->tableNameMap[$tableName])) {
+                $tmp_name = $this->tableNameMap[$tableName];
+            } else {
+                $tmp_name = str_replace($this->tablePrefix, '', $tableName);
+            }
+            $controllerName = $this->modelGenerator->generateClassName($tmp_name);
+            $controllers[] = $controllerName;
+        }
 
-    /**
-     * @var string namespace path for crud views
-     */
-    public $crudViewPath = '@app/views/crud';
+        $params = [
+            'controllers' => $controllers,
+            'tables' => $this->tables,
 
+            'singularEntities' => $this->singularEntities,
+            'interactive' => $this->interactive,
+            'overwrite' => $this->overwrite,
+            'template' => $this->template,
+            'overwriteAdminMenu' => $this->overwriteAdminMenu,
+        ];
 
-    /**
-     * @var bool is interactive console mode enabled
-     */
-    public $interactive = false;
+        $route = 'gii/seog-widget';
+
+        $app = \Yii::$app;
+        $temp = new \yii\console\Application($this->appConfig);
+        $temp->runAction(ltrim($route, '/'), $params);
+        $temp->get($this->modelDb)->close();
+        unset($temp);
+        \Yii::$app = $app;
+        \Yii::$app->log->logger->flush(true);
+    }
 }
 

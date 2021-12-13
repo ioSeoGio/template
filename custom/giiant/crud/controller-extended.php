@@ -119,11 +119,20 @@ if ($traits) {
     /**
     * Creates a new <?= $modelClass ?> model.
     * If creation is successful, the browser will be redirected to the 'view' page.
-    * @return mixed
-    */
-    public function actionCreate()
+     *
+     * @param $id int|null If copying model
+     *
+     * @return mixed
+     */
+    public function actionCreate(int $id = null)
     {
         $model = new <?= $modelClass ?>();
+        if ($id) {
+            $originModel = <?= $modelClass ?>::findOne($id);
+            if (!$model->load($originModel->attributes, '')) {
+                Yii::$app->session->addFlash('error', Yii::t('app', 'Failed to copy record.'));
+            }
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', <?= $urlParams ?>]);

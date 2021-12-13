@@ -43,7 +43,7 @@ $copyParams = $model->attributes;
 
 $this->title = Yii::t('<?= $generator->modelMessageCategory ?>', '<?= $modelName ?>');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('<?= $generator->modelMessageCategory ?>', '<?= Inflector::pluralize($modelName) ?>'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => (string)$model-><?= $generator->getNameAttribute() ?>, 'url' => ['view', <?= $urlParams ?>]];
+$this->params['breadcrumbs'][] = ['label' => (string)$model-><?= $generator->getModelNameAttribute($model) ?>, 'url' => ['view', <?= $urlParams ?>]];
 $this->params['breadcrumbs'][] = <?= $generator->generateString('View') ?>;
 ?>
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass), '-', true) ?>-view">
@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = <?= $generator->generateString('View') ?>;
 
             <?= '<?= ' ?>Html::a(
             '<span class="glyphicon glyphicon-copy"></span> ' . <?= $generator->generateString('Copy') ?>,
-            ['create', <?= $urlParams ?>, '<?= StringHelper::basename($generator->modelClass) ?>'=>$copyParams],
+            ['create', <?= $urlParams ?>],
             ['class' => 'btn btn-success']) ?>
 
             <?= '<?= ' ?>Html::a(

@@ -11,12 +11,13 @@ use schmunk42\giiant\helpers\SaveForm;
 
 class Generator extends \schmunk42\giiant\generators\crud\Generator
 {
-    /**
-     * @var bool whether generate messages for translations for crud
-     */
-    public $generateMessages = false;
+	/**
+	 * @var bool whether generate messages for translations for crud
+	 */
+	public $generateMessages = false;
     public $apiControllersNamespace = '@app/controllers/api/';
     public $migrationsNamespace = '@app/migrations/';
+    public $adminMenuNamespace = '@admin/widgets/';
 
     public function generate()
     {
@@ -62,6 +63,7 @@ class Generator extends \schmunk42\giiant\generators\crud\Generator
             $files[] = new CodeFile($restControllerFile, $this->render('controller-rest.php', $params));
         }
 
+
         if (!empty($this->searchModelClass)) {
             $searchModel = Yii::getAlias('@'.str_replace('\\', '/', ltrim($this->searchModelClass, '\\').'.php'));
             if ($this->overwriteSearchModelClass || !is_file($searchModel)) {
@@ -90,13 +92,13 @@ class Generator extends \schmunk42\giiant\generators\crud\Generator
             $files[] = new CodeFile($migrationFile, $this->render('migration_access.php', ['accessDefinitions' => $accessDefinitions]));
 
             if ($this->generateMessages) {
-                /*
-                 * access roles translation
-                 */
-                $forRoleTranslationFile = StringHelper::dirname(StringHelper::dirname($controllerFile))
+            	/*
+            	 * access roles translation
+            	 */
+            	$forRoleTranslationFile = StringHelper::dirname(StringHelper::dirname($controllerFile))
                     .'/messages/for-translation/'
                     .$controllerName.'.php';
-                $files[] = new CodeFile($forRoleTranslationFile, $this->render('roles-translation.php', ['accessDefinitions' => $accessDefinitions]));
+            	$files[] = new CodeFile($forRoleTranslationFile, $this->render('roles-translation.php', ['accessDefinitions' => $accessDefinitions]));
             }
         }
 

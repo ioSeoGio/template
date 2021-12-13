@@ -20,4 +20,13 @@ return [
             'seog_template' => '@app/custom/giiant/crud',
         ]
     ],
+    'seog-widget' => [
+        // Класс генератора
+        'class' => 'app\custom\giiant\widgets\Generator',
+        // Настройки шаблонов
+        'templates' => [
+            // Имя шаблона => путь к шаблону
+            'seog_template' => '@app/custom/giiant/widgets',
+        ]
+    ],
 ];

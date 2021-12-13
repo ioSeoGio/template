@@ -1,4 +1,7 @@
 <?php
+use yii\helpers\Inflector;
+echo "<?php\n";
+?>
 
 namespace app\modules\admin\widgets;
 
@@ -23,8 +26,17 @@ class Menu extends Widget
                 [
                     'name' => Yii::t('app', 'Test'),
                     'url' => Url::to(['default/index']),
-                    'can' => Yii::$app->user->can('test') ?: true,
+                    'can' => Yii::$app->user->can('test'),
                 ],
+            ],
+            Yii::t('cruds', 'Without group') => [
+<?php foreach ($data as $row): ?>
+                [
+                    'name' => Yii::t('models', '<?= $row['controller'] ?>'),
+                    'url' => Url::to(['<?= $row['controllerID'] ?>/index']),
+                    'can' => Yii::$app->user->can('<?= $row['permisions']['index']['name'] ?>'),              
+                ],
+<?php endforeach; ?>
             ],
         ];
         
