@@ -16,7 +16,7 @@
 - `phpdoc:latest` used to generate code documentation on each start of project
 
 ### Template's software:
-- `angular` - faster to handle with synced data after ajax requests
+- `angularJS` - faster to handle with synced data after ajax requests
 - `php8`
 - `postgres` - much better for specific tasks than mysql
 
@@ -85,10 +85,12 @@ Use -d flag to run docker containers in daemon mode (optional)
 #### Go to php container && install vendor files
     docker exec -it template_php_1 /bin/bash
 (name 'template_php_1' may be vary, depends of name of your project)
+    
     composer install
+(type this int php container to install vendor files)
 
 #### Make migrations to fill database
-    php yii migration
+    php yii migrate
 And answer 'yes' to interactive questions
 
 START OF DEVELOPING
@@ -107,6 +109,11 @@ Extract Yii:t() messages from code & make files with messages which will be used
 
     php yii batch
 Run custom gii generator
+
+    make php
+Opens the php container
+(see Makefile to other make commands)
+
 
 TESTING
 -------

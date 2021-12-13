@@ -24,7 +24,7 @@ class Module extends \yii\base\Module
         }
         
         if (!Yii::$app->user->can('admin')) {
-            throw new \yii\web\ForbiddenHttpException(Yii::t('app', 'Вам сюда нельзя.'));
+            throw new \yii\web\ForbiddenHttpException(Yii::t('app', 'You can\'t see this page.'));
         }
         return true;
     }

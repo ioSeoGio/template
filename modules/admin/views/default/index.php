@@ -1,1 +1,1 @@
-<?= Yii::t('cruds', 'Выберите пункт из меню слева.') ?>
+<?= Yii::t('cruds', 'Select category from left menu.') ?>

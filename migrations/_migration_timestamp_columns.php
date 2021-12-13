@@ -4,10 +4,10 @@ return [
     'created_at' => $this->timestamp()
     	->notNull()
     	->defaultExpression('CURRENT_TIMESTAMP')
-    	->comment('Дата создания записи'),
+    	->comment('Datetime of record creating'),
     	
     'updated_at' => $this->timestamp()
     	->notNull()
     	->defaultExpression('CURRENT_TIMESTAMP')
-    	->comment('Дата редактирования записи'),
+    	->comment('Datetime of last record updating'),
 ];

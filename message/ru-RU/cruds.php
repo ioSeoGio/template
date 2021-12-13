@@ -17,18 +17,22 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'New' => 'Создать',
-    'First' => 'Первая',
-    'Last' => 'Последняя',
-    'List' => '(список)',
-
-    'Create' => 'Сохранить',
-    'Edit' => 'Редактировать',
-    'View' => 'Посмотреть',
-    'Delete' => 'Удалить',
-    'Save' => 'Сохранить',
-    'Copy' => 'Скопировать',
-
     'Full list' => 'Список',
     'Select' => 'Выберите',
+
+    'Are you sure to delete this item?' => 'Вы уверены что хотите удалить эту запись?',
+    'Copy' => 'Скопировать',
+    'Create' => 'Создать',
+    'Delete' => 'Удалить',
+    'Edit' => 'Редактировать',
+    'First' => 'Первый',
+    'Full list' => 'Полный список',
+    'Last' => 'Последний',
+    'New' => 'Новый',
+    'Reset' => 'Сбросить',
+    'Search' => 'Поиск',
+    'Select' => 'Выберите',
+    'Text Translations' => 'Переводы текста',
+    'View' => 'Посмотреть',
+    'Select category from left menu.' => 'Выберите пункт из меню слева.',
 ];

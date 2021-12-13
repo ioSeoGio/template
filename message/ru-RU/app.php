@@ -17,4 +17,5 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
+    'You can\'t see this page.' => 'Вам сюда нельзя.',
 ];

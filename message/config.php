@@ -16,7 +16,7 @@ return [
     'silentExitOnException' => null,
     'sourcePath' => '@app',
     'messagePath' => '@app/message',
-    'languages' => ['uk-UA'],
+    'languages' => ['uk-UA', 'ru-RU'],
     'translator' => 'Yii::t',
     'sort' => false,
     'overwrite' => true,
