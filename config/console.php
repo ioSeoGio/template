@@ -53,6 +53,7 @@ $config = array_merge($language, [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
         '@tests' => '@app/tests',
+        '@admin' => '@app/admin',
     ],
     'components' => [
         'authManager' => [

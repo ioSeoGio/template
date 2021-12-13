@@ -29,7 +29,7 @@ class <?= $className ?> extends Base<?= $className . "\n" ?>
     // Use this method to set primary name column if it has not standart name
     public function getLabel()
     {
-        <!-- return $this->full_name; -->
+        // return $this->full_name;
     }
 
     public function behaviors()
