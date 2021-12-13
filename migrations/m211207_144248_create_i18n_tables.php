@@ -23,7 +23,7 @@ class m211207_144248_create_i18n_tables extends Migration
             'id' => $this->primaryKey(),
             'source_id' => $this->integer(),
             'language' => $this->string()->defaultValue($mainTranslateLanguage),
-            'translation' => $this->text()->unique(),
+            'translation' => $this->text()->defaultValue(''),
         ]);
 
         $this->addForeignKey(

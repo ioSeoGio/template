@@ -12,6 +12,12 @@ $config = array_merge($language, [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'app\commands',
     'controllerMap' => [
+        'fixture' => [ // Fixture generation command line.
+            'class' => 'yii\faker\FixtureController',
+            'templatePath' => '@tests/unit/templates',
+            'language' => 'ru_RU',
+            'count' => 5,
+        ],
         'batch' => [
             // 'class' => 'schmunk42\giiant\commands\BatchController',
             'class' => 'app\custom\giiant\BatchController',
