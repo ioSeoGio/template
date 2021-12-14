@@ -64,7 +64,6 @@ class Generator extends \yii\gii\Generator
         // Admin menu widgets
         $adminMenuFile = Yii::getAlias($this->adminWidgetsNamespace).'Menu.php';
         
-        $files = [];
         if ($this->overwriteAdminMenu || !is_file($adminMenuFile)) {
             $files[] = new CodeFile($adminMenuFile, $this->render('admin-menu.php', $params));
         }
