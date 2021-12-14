@@ -108,7 +108,16 @@ COMMANDS
 Extract Yii:t() messages from code & make files with messages which will be used to load in database
 
     php yii batch
-Run custom gii generator
+Run custom gii generator (all actions)
+
+    php yii batch/models
+Custom model gii generation
+    
+    php yii batch/cruds
+Custom cruds gii generation
+    
+    php yii batch/fixtures
+Custom fixtures gii generation
 
     make php
 Opens the php container
