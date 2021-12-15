@@ -107,17 +107,29 @@ COMMANDS
     php yii message/extract @app/message/config.php
 Extract Yii:t() messages from code & make files with messages which will be used to load in database
 
+    php yii fixture/generate-all
+Generate data on given template
+
+
+    php yii fixture/load "*"
+Load generated data in database
+
+
     php yii batch
 Run custom gii generator (all actions)
 
+
     php yii batch/models
 Custom model gii generation
+
     
     php yii batch/cruds
 Custom cruds gii generation
+
     
     php yii batch/fixtures
 Custom fixtures gii generation
+
 
     make php
 Opens the php container

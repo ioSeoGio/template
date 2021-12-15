@@ -12,7 +12,8 @@ class Generator extends \yii\gii\Generator
 {
 	public $singularEntities;
     public $overwriteFixtures = false;
-    public $fixturesNamespace = '@tests/unit/fixtures/';
+    public $fixturesAlias = '@tests/unit/fixtures/';
+    public $fixturesNamespace = 'tests/unit/fixtures';
     public $modelsNamespace = 'app/models/';
 
     public $grabData = false;
@@ -23,6 +24,16 @@ class Generator extends \yii\gii\Generator
 	public $controllers;
 	public $controllerClass;
     public $db;
+    public $tableForeignKeys;
+
+    public $addTables = [
+        'users',
+    ];
+    
+    public $ignoreTables = [
+        'message',
+        'source_message',
+    ];
 
     /**
      * {@inheritdoc}
@@ -50,27 +61,67 @@ class Generator extends \yii\gii\Generator
         return Inflector::camel2id($class, '-', true);
     }
 
+    private function configureTableArray()
+    {
+        $this->tables = array_merge($this->tables, $this->addTables);
+        
+        foreach ($this->ignoreTables as $tableToIgnore) {
+            if ($key = array_search($tableToIgnore, $this->tables)) {
+                unset($this->tables[$key]);
+            }
+        }
+    }
+
+    private function getRightNamespace(string $wrongNamespace)
+    {
+        return str_replace('/', '\\', $wrongNamespace);
+    }
+
 	public function generate()
 	{	
         $files = [];
+        $this->configureTableArray();
+
         foreach ($this->tables as $tableName) {
             $className = $this->generateClassName($tableName);
             $classNameId = Inflector::camel2id($className, '-', true);
 
-            $fixtureClassFile = Yii::getAlias($this->fixturesNamespace).$className.'Fixture.php';
-            $fixtureDataFile = Yii::getAlias($this->fixturesNamespace).'../templates/'.$classNameId.'.php';
+            $fixtureClassFile = Yii::getAlias($this->fixturesAlias).$className.'Fixture.php';
+            $fixtureDataFile = Yii::getAlias($this->fixturesAlias).'../templates/'.$classNameId.'.php';
 
 
             // var_dump(\app\models\CartProduct::class);die;
             $modelFullClass = $this->modelsNamespace . $className;
             $params = [
-                'modelFullClass' => $modelFullClass,
-                'dataFileFullPath' => $this->fixturesNamespace . 'data/' . $classNameId . '.php',
+                'modelFullClass' => $this->getRightNamespace($modelFullClass),
+                'dataFileFullPath' => $this->fixturesAlias . 'data/' . $classNameId . '.php',
                 'className' => $className,
                 'classNameId' => $classNameId,
 
-                'items' => $this->getFixtureData(str_replace('/', '\\', $modelFullClass)),
+                'fixturesNamespace' => $this->getRightNamespace($this->fixturesNamespace),
+
+                'items' => $this->getFixtureData($this->getRightNamespace($modelFullClass)),
             ];
+            // var_dump(1);die;
+
+            $tableForeignKeys = $this->getDbConnection()->getSchema()
+                ->getTableSchema($tableName)
+                ->foreignKeys; 
+
+            $dependencies = [];
+            foreach ($tableForeignKeys as $fkName => $array) {
+                $dependencyTableName = $array[0];
+                $nameOfRelationTable = $this->generateClassName($dependencyTableName);
+
+                // var_dump("Table name $tableName");
+                // var_dump("dependecy: $dependencyTableName");
+
+                if ($dependencyTableName !== $tableName) {
+                    $dependencies[] = $this->getRightNamespace($this->fixturesNamespace) . '\\' . $nameOfRelationTable . 'Fixture';
+                }
+            }
+            $params['dependencies'] = $dependencies;
+            
             if ($this->overwriteFixtures || !is_file($fixtureClassFile)) {
                 $files[] = new CodeFile($fixtureClassFile, $this->render('fixture-class.php', $params));
             }
@@ -110,6 +161,7 @@ class Generator extends \yii\gii\Generator
         }
 
         $db = $this->getDbConnection();
+
         $patterns = [];
         $patterns[] = "/^{$this->tablePrefix}(.*?)$/";
         $patterns[] = "/^(.*?){$this->tablePrefix}$/";
@@ -187,13 +239,13 @@ class Generator extends \yii\gii\Generator
                     'phone' => '$faker->phoneNumber',
                     'address' => '$faker->address',
                     'comment' => '$faker->sentence(6)',
-                    'name' => '$faker->word',
+                    'name' => '$faker->word . $index',
                     'body' => '$faker->sentence(6)',
                     'email' => '$faker->email',
-                    'photo' => '$faker->photoUrl',
+                    'photo' => '$faker->imageUrl()',
                     
-                    'created_at' => '$faker->dateTimeBetween($startDate = \'-15 years\', $endDate = \'now\')',
-                    'updated_at' => '$faker->dateTimeBetween($startDate = \'-15 years\', $endDate = \'now\')',
+                    'created_at' => '$faker->date($format = \'Y-m-d\', $max = \'now\') . \' \' . $faker->time($format = \'H:i:s\', $max = \'now\')',
+                    'updated_at' => '$faker->date($format = \'Y-m-d\', $max = \'now\') . \' \' . $faker->time($format = \'H:i:s\', $max = \'now\')',
 
                     'seo_h1' => '$faker->word',
                     'seo_title' => '$faker->word',
@@ -215,16 +267,12 @@ class Generator extends \yii\gii\Generator
                     }
                 }
 
-
-                // if (isset($fakerOnName[$column->name])) {
-                    // $item[$column->name] = $fakerOnName[$column->name];
-
-                // } elseif (isset($fakerOnType[$column->type])) {
-                
                 if (!$columnGotValue) {
                     if (isset($fakerOnType[$column->type])) {
                         $item[$column->name] = $fakerOnType[$column->type];
                     
+                    } elseif ($column->defaultValue) {
+                        $item[$column->name] = $column->defaultValue;
                     } else {
                         $item[$column->name] = $column->allowNull ? 'null' : '\'\'';
                     }

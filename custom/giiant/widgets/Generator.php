@@ -12,7 +12,7 @@ class Generator extends \yii\gii\Generator
 {
 	public $singularEntities;
 	public $overwriteAdminMenu = false;
-	public $adminWidgetsNamespace = '@admin/widgets/';
+    public $adminWidgetsNamespace = '@app/modules/admin/widgets/';
 
 	public $tables;
 	public $controllers;
@@ -51,6 +51,7 @@ class Generator extends \yii\gii\Generator
 
 	public function generate()
 	{	
+        $files = [];
 		$data = [];
 		foreach ($this->controllers as $controllerName) {
 			$this->controllerClass = $controllerName;

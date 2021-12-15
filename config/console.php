@@ -16,7 +16,7 @@ $config = array_merge($language, [
             'class' => 'yii\faker\FixtureController',
             'templatePath' => '@tests/unit/templates',
             'language' => 'ru_RU',
-            'count' => 5,
+            'count' => 10,
         ],
         'batch' => [
             // 'class' => 'schmunk42\giiant\commands\BatchController',
@@ -30,7 +30,7 @@ $config = array_merge($language, [
             'crudPathPrefix' => null,
             'crudSearchModelNamespace' => 'app\\models\\search',
             
-            'crudViewPath' => '@admin/views',
+            'crudViewPath' => '@app/modules/admin/views',
             'crudControllerNamespace' => 'app\\modules\\admin\\controllers',
 
             'skipTables' => [
